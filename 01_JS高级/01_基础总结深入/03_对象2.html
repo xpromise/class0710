@@ -11,6 +11,14 @@
   * 属性名不确定
 -->
 <script type="text/javascript">
+  var person = {};
+
+  var n = 'name';
+  person[n] = '老王';
+  
+  // person.content-type = 'text/html';  //出错
+  person['content-type'] = 'text/html';
+  console.log(person);
 
 </script>
 </body>

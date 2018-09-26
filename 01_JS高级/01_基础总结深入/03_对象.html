@@ -27,6 +27,36 @@
 -->
 
 <script type="text/javascript">
+  /*
+    1. 什么是对象： 实体的抽象表达，用来描述事物
+    2. 为什么要使用？ 便于管理包含多个数据的事物
+    3. 对象的组成： 属性 和 方法
+   */
+  var person1 = {
+    name: '石正',
+    'age': 18,
+    'say': function (word) {
+      console.log(word);
+    }
+  }
+
+  var pro = 'address';
+
+  person1.sex = '男';
+  // person1['address'] = '北京市';
+  // person1.pro = '北京市';
+  person1[pro] = '北京市';
+  console.log(person1);
+
+  /*var person2 = {
+    name: 'xxx',
+    age: 20
+  }
+  var sex = '男';
+  var name1 = '石正';
+  var age1 = 18;
+  var name2 = 'xxx';
+  var age2 = 20;*/
 
 </script>
 </body>
