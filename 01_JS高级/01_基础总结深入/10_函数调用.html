@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script type="text/javascript">
+    /*
+      实现一个函数:
+        mul(2)      返回 2
+        mul(2)(3)   返回 6
+        mul(2)(3)(4)  返回 24
+
+     */
+
+    function mul(m) {
+      var fn = function (n) {
+        return mul(m * n); //递归调用
+      }
+
+      fn.toString = function () {
+        return m;
+      }
+
+      return fn;
+    }
+
+    /*
+      将mul(2, 3, 4)改为mul(2)(3)(4)，这个过程就叫做函数的柯里化
+
+      mul(2)   ---  fn  函数内部 m : 2
+      mul(2)(3) ---  fn(3) ---> mul(6)  --> fn 函数内部 m: 6
+      mul(2)(3)(4) --- fn(4)  ---> mul(24)  --->  fn 函数内部 m: 24
+      */
+
+    console.log(mul(2));
+    console.log(mul(2)(3));
+    console.log(mul(2)(3)(4));
+    console.log(mul(2)(3)(4)(5));
+
+  </script>
+</body>
+</html>

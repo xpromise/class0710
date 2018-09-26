@@ -9,17 +9,52 @@
 1. this是什么?
   * 一个关键字, 一个内置的引用变量
   * 在函数中都可以直接使用this
-  * 在定义函数时, this还没有确定, 只有在执行时才动态确定(绑定)的
+  * 在定义函数时, this还没有确定, 只有在函数执行时才动态确定(绑定)的
 2. 如何确定this的值?
   * test()
   * obj.test()
   * new test()
   * test.call(obj)
+  * 箭头函数（es6后面学）
 前置知识:
   * 本质上任何函数在执行时都是通过某个对象调用的
 -->
 <script type="text/javascript">
+  /*
+    this: 一个关键字，一个内置引用变量
 
+   */
+  /*console.log(this); //window
+  console.log(window);
+
+  for (var i = 0; i < 123; i++) {
+    console.log(this); //window
+  }*/
+
+  function fn() {
+    console.log(this);
+  }
+
+  window.fn();  //window
+
+  var obj = {fn: fn};
+  obj.fn();  // obj
+
+  var obj1 = {
+    obj2: {
+      obj3: {
+        fn: fn
+      }
+    }
+  }
+
+  obj1.obj2.obj3.fn() // obj3
+
+  var f = new fn(); // f
+
+  var person = {};
+
+  fn.call(person); // person
 
 </script>
 </body>
