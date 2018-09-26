@@ -11,6 +11,18 @@
   * 如果后一种看成是引用传递, 那就值传递和引用传递都可以有
 -->
 <script type="text/javascript">
+  function fn(x) {
+    console.log(x);
+  }
+  var a = 123; //基本数据类型
+  fn(a);  // fn(123)  值传递
+  var b = {};
+  fn(b);   // 引用传递，虽然传递的是地址值，但是地址值指向的是对象
+           // 值传递， 传递其实是地址值
+
+  var c = 123;
+  var d = c;
+  c = 456;
 
 </script>
 </body>
