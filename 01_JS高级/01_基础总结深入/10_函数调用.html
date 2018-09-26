@@ -28,14 +28,14 @@
       将mul(2, 3, 4)改为mul(2)(3)(4)，这个过程就叫做函数的柯里化
 
       mul(2)   ---  fn  函数内部 m : 2
-      mul(2)(3) ---  fn(3) ---> mul(6)  --> fn 函数内部 m: 6
-      mul(2)(3)(4) --- fn(4)  ---> mul(24)  --->  fn 函数内部 m: 24
+      mul(2)(3) === mul(6) ---  fn(3) ---> mul(6)  --> fn 函数内部 m: 6
+      mul(2)(3)(4) === mul(24) --- fn(4)  ---> mul(24)  --->  fn 函数内部 m: 24
       */
 
-    console.log(mul(2));
-    console.log(mul(2)(3));
+    // console.log(mul(2));
+    // console.log(mul(2)(3));
     console.log(mul(2)(3)(4));
-    console.log(mul(2)(3)(4)(5));
+    // console.log(mul(2)(3)(4)(5));
 
   </script>
 </body>
