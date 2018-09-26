@@ -59,9 +59,9 @@ var
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
-		// The jQuery object is actually just the init constructor 'enhanced'
-		return new jQuery.fn.init( selector, context, rootjQuery );
-	},
+    // The jQuery object is actually just the init constructor 'enhanced'
+    return new jQuery.fn.init( selector, context, rootjQuery );
+  },
 
 	// Used for matching numbers
 	core_pnum = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
@@ -9807,10 +9807,13 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 })( window );
 
 /*
-	(function (w) {
-		jQuery = function () {}
+// IIFE
+(function( window, undefined ) {
 
-		w.jQuery = w.$ = jQuery;
-	})(window)
+	var jQuery = function () {
+		return new xxx();
+	}
 
+	window.$ = window.jQuery = jQuery;
+})( window );
  */

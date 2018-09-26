@@ -19,7 +19,13 @@
     /*
       a == 1  , 对象不能直接和数值进行运算，所以对象做了隐式转换，就会自动调用 a.valueOf()  a.toString()  返回 1  num变为了 2
       a == 2 , 对象不能直接和数值进行运算，所以对象做了隐式转换，就会自动调用  a.valueOf()  a.toString()  返回 2  num变为了 3
-      a == 3 , 对象不能直接和数值进行运算，所以对象做了隐式转换，就会自动调用  a.valueOf()  a.toString()  返回 3 num变为了 4
+      a == 3 , 对象不能直接和数值进行运算，所以对象做了隐式转换，就会自动调用  a.valueOf()  a.toString()  返回 3  num变为了 4
+     */
+    /*
+      valueOf 和 toString：
+        1. 一般优先调用toString()
+        2. 如果是算术运算，就优先调用valueOf
+        3. 其他（如显示console.log()  alert()）都优先考虑toString
      */
 
     if (a == 1 && a == 2 && a == 3) {

@@ -21,6 +21,28 @@
 -->
 <script type="text/javascript">
 
+  /*
+    回调函数：
+      1. 你定义的
+      2. 你没有调用
+      3. 最终函数执行了
+    - 异步加载的通知机制
+   */
+
+  var btn = document.getElementById('btn');
+
+  btn.onclick = function (ev) {
+    alert('点击了按钮');
+  }
+
+  setTimeout(function () {
+    alert('到点了~');
+  }, 1000)
+
+  alert('xxxxx');
+
+  console.log('yyyyyyyyyyy');
+
 </script>
 </body>
 </html>
