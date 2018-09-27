@@ -27,6 +27,25 @@
   * 开始执行函数体代码
 -->
 <script type="text/javascript">
+  /*
+    在执行全局代码之前，会创建一个全局执行上下文对象 window
+   */
+  var a1 = 123;
+  function a2() {
+
+  }
+  console.log(this); // window
+  function fn(x) {
+    console.log(x);
+    console.log(arguments);
+    console.log(this);
+    var a = 123;
+    function foo() {
+
+    }
+  }
+  fn(1);
+  fn(2);
 
 </script>
 </body>

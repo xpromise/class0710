@@ -13,7 +13,17 @@
 5. 当所有的代码执行完后, 栈中只剩下window
 -->
 <script type="text/javascript">
-
+  //1. 创建全局执行上下文对象 window
+  var a = 10;
+  var bar = function (x) {
+    var b = 5;
+    foo(x + b);  // 3. 创建函数执行上下文对象 foo
+  }
+  var foo = function (y) {
+    var c = 5;
+    console.log(a + c + y);
+  }
+  bar(10);   // 2. 创建函数执行上下文对象 bar
 </script>
 </body>
 </html>
