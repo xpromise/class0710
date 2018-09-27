@@ -16,6 +16,21 @@
   * 程序员能直接操作显式原型, 但不能直接操作隐式原型(ES6之前)
 -->
 <script type="text/javascript">
+  // 1. 每个函数function都有一个prototype，即显式原型
+  function Person(name) {
+    this.name = name;  //继承属性
+    /*
+      Person.prototype = {};
+      Person.prototype.constructor = Person;
+      Person.prototype.__proto__ = Object.prototype
+     */
+  }
+  console.log(Person.prototype);
+  // 2. 每个实例对象都有一个__proto__，可称为隐式原型
+  var p = new Person();  // p.__proto__ = Person.prototype  继承构造函数的方法
+  console.log(p.__proto__);
+  // 3. 对象的隐式原型的值为其对应构造函数的显式原型的值
+  console.log(p.__proto__ === Person.prototype); //true
 
 </script>
 </body>

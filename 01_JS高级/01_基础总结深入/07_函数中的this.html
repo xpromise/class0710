@@ -56,6 +56,20 @@
 
   fn.call(person); // person
 
+
+  var o1 = {
+    a: function () {
+      console.log(this);
+    }
+  }
+  o1.a();  // o1
+
+  var b = o1.a;
+  b(); // window
+
+
+
+
 </script>
 </body>
 </html>
