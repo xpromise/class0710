@@ -30,9 +30,9 @@
   function Person(name, age) {
     this.name = name;
     this.age = age;
-    // this.toString = function () {
-    //   console.log('函数内部的toString');
-    // }
+    this.toString = function () {
+      console.log('函数内部的toString');
+    }
   }
   Person.prototype.toString = function () {
     console.log('构造函数原型上的toString');

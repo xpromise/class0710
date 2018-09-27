@@ -22,12 +22,19 @@
 
   var p1 = new Person('Tom', 12);
   p1.setName('Jack');
-  console.log(p1.name, p1.age, p1.sex);
-  p1.sex = '女';
-  console.log(p1.name, p1.age, p1.sex);
+  console.log(p1.name, p1.age, p1.sex); // Jack 12 男
+  p1.__proto__.sex = '女';
+  /*
+    读取属性时，会沿着原型链查找
+    设置属性时，不会看原型链，
+      如果直接属性存在，就覆盖之前的值。
+      如果直接属性不存在，就新添加一个属性
+   */
+  console.log(p1);
+  console.log(p1.name, p1.age, p1.sex); // Jack 12 女
 
   var p2 = new Person('Bob', 23);
-  console.log(p2.name, p2.age, p2.sex);
+  console.log(p2.name, p2.age, p2.sex); //Bob 23 女
 </script>
 </body>
 </html>
