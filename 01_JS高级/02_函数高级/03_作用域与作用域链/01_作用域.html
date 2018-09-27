@@ -22,12 +22,12 @@
   function fn(x) {
     var a = 100,
       c = 300;
-    console.log('fn()', a, b, c, x);
+    console.log('fn()', a, b, c, x); // 100 20 300 10
 
     function bar(x) {
       var a = 1000,
       d = 400;
-      console.log('bar()', a, b, c, d, x);
+      console.log('bar()', a, b, c, d, x); // 1000 20 300 400 100 / 200
     }
 
     bar(100);
