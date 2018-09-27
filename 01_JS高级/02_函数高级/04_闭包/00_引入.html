@@ -14,6 +14,28 @@
 需求: 点击某个按钮, 提示"点击的是第n个按钮"
 -->
 <script type="text/javascript">
+  var btns = document.querySelectorAll('button');
+
+  /*for (var i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+      alert(i); //3
+    }
+  }*/
+
+  /*for (var i = 0; i < btns.length; i++) {
+    btns[i].index = i;
+    btns[i].onclick = function () {
+      alert(this.index + 1);
+    }
+  }*/
+
+  for (var i = 0; i < btns.length; i++) {
+    (function (i) {
+      btns[i].onclick = function () {
+        alert(i + 1);
+      }
+    })(i);
+  }
 
 </script>
 </body>

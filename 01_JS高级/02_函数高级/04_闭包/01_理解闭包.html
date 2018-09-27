@@ -19,6 +19,25 @@
   * 执行外部函数
 -->
 <script type="text/javascript">
+
+  function fn1 () {
+    debugger;
+    var a = 1;
+    var b = 2;
+    function fn2() {  //函数嵌套
+      console.log(a);  //内部函数引用外部函数的局部变量
+    }
+  }
+  fn1();  //执行外部函数
+  /*
+    闭包产生的条件：
+      1. 函数嵌套
+      2. 内部函数引用外部函数的局部变量
+      3. 执行外部函数
+    闭包是什么？
+      使用chrome调试查看, 闭包就是包含被引用变量的对象closure，这个对象存在嵌套的内部函数中
+   */
+
 </script>
 </body>
 </html>
