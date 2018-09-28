@@ -18,17 +18,31 @@
       }
     }
   }
-  var a = fun(0);
-  a.fun(1);
-  a.fun(2);
-  a.fun(3);
+  var a = fun(0);  // undefined  产生了闭包（n: 0）
+  a.fun(1);  //  0  m:1  fun(1, 0)  输出结果是0  产生了新闭包（n: 1）
+  a.fun(2);  //  0  m:2  fun(2, 0)  输出结果是0  产生了新闭包（n: 2）
+  a.fun(3);  //  0  m:3  fun(3, 0)  输出结果是0  产生了新闭包（n: 3）
 
-  var b = fun(0).fun(1).fun(2).fun(3);
+  var b = fun(0).fun(1).fun(2).fun(3);   // undefined 0 1 2
+  /*
+    fun(0)  产生了闭包（n: 0）
+    fun(0).fun(1)  m:1  --> fun(1, 0) --> 输出 0 --> 产生了新闭包（n: 1）
+    fun(0).fun(1).fun(2)  m:2 --> fun(2, 1) --> 输出 1 --> 产生了新闭包（n: 2）
+    fun(0).fun(1).fun(2).fun(3)  m:3 --> fun(3, 2) --> 输出 2 --> 产生了新闭包（n: 3）
+   */
 
   var c = fun(0).fun(1);
+  /*
+    fun(0)  产生了闭包（n: 0） 输出 undefined
+    fun(0).fun(1)  m:1  --> fun(1, 0) --> 输出 0 --> 产生了新闭包（n: 1）
+   */
   c.fun(2);
   c.fun(3);
-
+  /*
+  m:2  fun(2, 1)  输出结果是1  产生了新闭包（n: 2）
+  m:3  fun(3, 1)  输出结果是1  产生了新闭包（n: 3）
+   */
+  // undefined 0 1 1
 </script>
 </body>
 </html>

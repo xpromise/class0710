@@ -15,25 +15,26 @@
   var object = {
     name: "My Object",
     getNameFunc: function () {
+      console.log(this); // object
       return function () {
-        return this.name;
+        return this.name; //window
       };
     }
   };
-  console.log(object.getNameFunc()());
+  console.log(object.getNameFunc()());  // The Window   // console.log((function () {return this.name;})())
 
   //代码片段二
   var name2 = "The Window";
   var object2 = {
     name2: "My Object",
     getNameFunc: function () {
-      var that = this;
+      var that = this;  //object2
       return function () {
         return that.name2;
       };
     }
   };
-  console.log(object2.getNameFunc()());
+  console.log(object2.getNameFunc()());  // My Object
 
 </script>
 </body>

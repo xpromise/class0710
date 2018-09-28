@@ -11,6 +11,17 @@
 2. 死亡: 在嵌套的内部函数成为垃圾对象时
 -->
 <script type="text/javascript">
+  function fn1() {
+    var a = 1;
+    function fn2() {  //产生：在嵌套内部函数定义执行完时就产生了(不是在调用)
+      console.log(a++);
+    }
+    return fn2;
+  }
+  var f = fn1();
+  f();  // 1
+  f(); // 2
+  f = null;  //死亡：在嵌套的内部函数成为垃圾对象时
 </script>
 </body>
 </html>

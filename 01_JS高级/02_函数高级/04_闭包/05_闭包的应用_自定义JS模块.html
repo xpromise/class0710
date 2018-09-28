@@ -13,6 +13,10 @@
   * 模块的使用者, 只需要通过模块暴露的对象调用方法来实现对应的功能
 -->
 </body>
+<script type="text/javascript" src="./module1.js"></script>
 <script type="text/javascript">
+  var myModule = module();
+  myModule.doSomething();
+  myModule.doOtherthing();
 </script>
 </html>
