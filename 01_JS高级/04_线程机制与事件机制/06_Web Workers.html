@@ -26,7 +26,53 @@
     计算得到fibonacci数列中第n个数的值
     在主线程计算: 当位数较大时, 会阻塞主线程, 导致界面卡死
     在分线程计算: 不会阻塞主线程
+
+    斐波那契数列：
+      1 1 2 3 5 8 13 21 34
    */
+
+  function fibonacci(num) {
+    /*if (num < 3) return 1;
+    var arr = [1 , 1];
+    for (var i = 0; i < num - 2; i++) {
+      arr[i + 2] = arr[i] + arr[i+1];
+    }
+    console.log(arr);
+    return arr[arr.length-1];*/
+    return num < 3 ? 1 : fibonacci(num - 2) + fibonacci(num - 1);
+  }
+  
+  var number = document.getElementById('number');
+  var btn1 = document.getElementById('btn1');
+  var btn2 = document.getElementById('btn2');
+
+  //问题：当进行大量运算时，用户无法操作页面
+  btn1.onclick = function () {
+    //获取用户输入的值
+    var value = number.value;
+    //计算斐波那契数列的值
+    console.log(fibonacci(value));
+  }
+
+  //解决：将大量的运算交给分线程执行
+  //就不影响用户的其他操作
+  btn2.onclick = function () {
+    //获取用户输入的值
+    var value = number.value;
+    //创建一个分线程
+    var worker = new Worker('./worker.js');
+    //主线程通知分线程开始计算工作
+    worker.postMessage(value);
+    //主线程接受分线程发送的内容
+    worker.onmessage = function (e) {
+      console.log('主线程接受分线程的通知');
+      //接受内容
+      var number = e.data;
+      //显示给用户
+      console.log(number);
+    }
+  }
+
 
 </script>
 </body>

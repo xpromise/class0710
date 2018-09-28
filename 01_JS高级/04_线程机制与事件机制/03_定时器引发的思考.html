@@ -18,6 +18,22 @@
   * 事件循环模型(后面讲)
 -->
 <script type="text/javascript">
+  /*
+    异步/回调函数 一定要等主线程执行完全局所有代码后，才可能执行
+   */
+  /*setTimeout(function () {
+    console.log('setTimeout()');
+  }, 1000);
+  
+  console.log('外部代码执行了');*/
+
+  for (var i = 0; i < 10; i++) {
+    setTimeout(function () {
+      console.log(i); // 10
+    }, 1000);
+  }
+
+  
 </script>
 </body>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>new关键字做了什么</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function Person(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    Person.prototype.setName = function (name) {
+      this.name = name;
+    }
+
+    var p = new Person('Jack', 18);
+    console.log(p);
+    /*
+      new关键字做了什么?
+
+     */
+
+    function newWork(name, age) {
+      // 1. 创建新的对象
+      var obj = {};
+      // 2. 调用构造函数，强制改变this指向为这个新的对象
+      var result = Person.call(obj, name, age);
+      // 3. 将对象的隐式原型属性 = 构造函数的显示原型属性
+      obj.__proto__ = Person.prototype;
+      //4. 判断构造函数调用的返回值,如果是对象，就直接返回该对象，如果不是对象，就返回新创建的实例对象
+      return typeof result === 'object' ? result : obj;
+    }
+
+  </script>
+</body>
+</html>
