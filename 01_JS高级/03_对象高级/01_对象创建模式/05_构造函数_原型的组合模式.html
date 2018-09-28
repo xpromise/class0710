@@ -11,6 +11,17 @@
   * 适用场景: 需要创建多个类型确定的对象
 -->
 <script type="text/javascript">
+  function Person(name, age) {
+    this.name = name;  //定义实例对象独有的属性
+    this.age = age;
+  }
+  Person.prototype.setName = function (name) { //原型对象上添加公共的方法/属性
+    this.name = name;
+  }
+  
+  var p1 = new Person('Jack', 18);
+  var p2 = new Person('Jack', 18);
+
 
 </script>
 </body>

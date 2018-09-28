@@ -12,6 +12,14 @@
   * 问题: 对象没有一个具体的类型, 都是Object类型
 -->
 <script type="text/javascript">
+  function createPerson(name, age) {
+    return {
+      name: name,
+      age: age
+    }
+  }
+  var obj1 = createPerson('Jack', 18);
+  var obj2 = createPerson('Bob', 18);
 </script>
 </body>
 </html>

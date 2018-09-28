@@ -11,6 +11,53 @@
 2. 利用super()借用父类型构建函数初始化相同属性
 -->
 <script type="text/javascript">
+  //父类构造函数
+  function Father(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  Father.prototype.setName = function (name) {
+    this.name = name;
+  }
+
+
+  //子类构造函数
+  function Son(name, age, sex) {
+    // Father.call(this ,name, age);  //继承父类的属性
+    Father.apply(this ,[name, age]);  //继承父类的属性
+
+    this.sex = sex;
+  }
+
+  // Son.prototype = new Father();     //继承父类的方法
+  Son.prototype = Father.prototype;  //继承父类的方法
+  Son.prototype.constructor = Son;  //修改constructor指向
+
+  /*
+    Son.prototype = Father.prototype;  //继承父类的方法
+    Son.prototype.constructor = Son;  //修改constructor指向
+    好处：
+      能够直接找到公共方法，不会有多余的属性
+    坏处：
+      constructor指向会有问题，只能指向Father或Son
+
+    Son.prototype = new Father();  //继承父类的方法
+    Son.prototype.constructor = Son;  //修改constructor指向
+    好处：
+      constructor指向没有问题
+    坏处：
+      有多余的属性（虽然属性不会产生影响）
+   */
+
+  var s = new Son('Jack', 18, '男');
+  console.log(s);
+  s.setName('Bob');
+  console.log(s);
+
+  var f = new Father('Bob', 18);
+  console.log(f);
+
 </script>
 </body>
 </html>
