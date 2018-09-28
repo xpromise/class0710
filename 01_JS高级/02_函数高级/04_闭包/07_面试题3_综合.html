@@ -15,15 +15,29 @@
   var getName = function () { alert (4);};
   function getName() { alert (5);}
 
+  /*function Foo() {
+    getName = function () { alert (1); };
+    return this;
+  }
+  // var getName;
+  // function getName() { alert (5);}
+  /!********************!/
+
+  Foo.getName = function () { alert (2);};
+  Foo.prototype.getName = function () { alert (3);};
+  // getName = function () { alert (4);};
+  getName = function () { alert (1); };*/
+
 
   //请写出以下输出结果：
-  Foo.getName();
-  getName();
-  Foo().getName();
-  getName();
-  new Foo.getName();
-  new Foo().getName();
-  new new Foo().getName();
+  Foo.getName(); // 2     2   2   2     2
+  getName();     // 3     4    4   4    5
+  Foo().getName();  // 3   1   1    1   1   (Foo()).getName()   window.getName()
+  getName();        // 4    1   4   1    4
+  new Foo.getName();  //    2    2   3   2   new (Foo.getName)()  new (function () { alert (2);}) ()  输出2
+  new Foo().getName();   //  1   3   2    3  ((new Foo()).getName)()  foo.getName()  输出 3
+  new new Foo().getName();  // 报错  3  ？  1  new ((new Foo()).getName) () --> new (foo.getName)() --> new (function () { alert (3);})()   输出3
+  // 2 4 1 1 2 3 3
 </script>
 </body>
 </html>
