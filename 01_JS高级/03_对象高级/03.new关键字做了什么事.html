@@ -25,9 +25,9 @@
       // 1. 创建新的对象
       var obj = {};
       // 2. 调用构造函数，强制改变this指向为这个新的对象
-      var result = Person.call(obj, name, age);
+      var result = Person.call(obj, name, age);  //继承构造函数的属性
       // 3. 将对象的隐式原型属性 = 构造函数的显示原型属性
-      obj.__proto__ = Person.prototype;
+      obj.__proto__ = Person.prototype;  //继承构造函数的方法
       //4. 判断构造函数调用的返回值,如果是对象，就直接返回该对象，如果不是对象，就返回新创建的实例对象
       return typeof result === 'object' ? result : obj;
     }
