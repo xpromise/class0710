@@ -12,4 +12,18 @@
     - 删除包和相关的依赖
    5. npm i xxx -g
     - 全局安装一个包(可以在cmd中运行指令)
+   6. npm init
+    - 初始化一个包描述文件 package.json
+    - 包名：
+      - 不允许现有的包名重复
+      - 不允许有中文字符
+      - 只能有_
  */
+
+var math = require('math');
+var fs = require('fs');
+
+console.log(math.add(2, 3));
+console.log(math.mul(2, 3));
+console.log(fs);
+
