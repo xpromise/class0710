@@ -21,7 +21,6 @@ var app = express();
     
     默认资源名
       index.html
-    
  */
 app.get('/', function (request, response) {
   //接受请求参数
