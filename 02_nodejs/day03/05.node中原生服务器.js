@@ -26,7 +26,7 @@ var server = http.createServer(function (request, response) {
   response.end('<h1>这是node原生服务器响应的内容~~~' + queryString.username + '</h1>');
 })
 //通过server监听端口号
-server.listen(3000, function (err) {
+server.listen(4000, function (err) {
   if (!err) console.log('服务器启动成功了~');
   else console.log(err);
 })
