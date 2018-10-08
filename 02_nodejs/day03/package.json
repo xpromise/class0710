@@ -1,0 +1,15 @@
+{
+  "name": "mongoose_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01.Model.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.3.2"
+  }
+}

@@ -26,6 +26,7 @@ app.get('/', function (request, response) {
   //接受请求参数
   var query = request.query;
   console.log(query); // { username: 'sunwukong', password: '123123' }
+  request.query.forEasdsadsad()
   //返回响应
   response.send('<h1>这是express服务器返回的响应~~~' + query.username + '</h1>');
 })
