@@ -11,8 +11,41 @@ app.use(express.static('public'));
 //第三方中间件
 app.use(bodyParser.urlencoded({extended: true}));
 
+//应用级中间件
+function regTest(req, res, next) {
+  // 1. 获取请求参数
+  var username = req.body.username;
+  var pwd = req.body.pwd;
+  var email = req.body.email;
+  var type = req.body.type;
+  
+  var usernameReg = /^[0-9A-Za-z_]{5,10}$/;  //用户名可以包含英文数字下划线，长度为5-10位
+  var pwdReg = /^[0-9A-Za-z_]{6,18}$/;  //密码可以包含英文数字下划线，长度为6-18位
+  var emailReg = /^[0-9A-Za-z_]{3,10}@[0-9A-Za-z_]{2,6}\.com$/;
+  
+  if (!usernameReg.test(username)) {
+    //用户名不符合规范
+    res.send('用户名不符合规范，可以包含英文数字下划线，长度为5-10位');
+    return;
+  }
+  //验证密码
+  if (!pwdReg.test(pwd)) {
+    //密码不符合规范
+    res.send('密码不符合规范，密码可以包含英文数字下划线，长度为6-18位');
+    return;
+  }
+  //验证邮箱
+  if (type && !emailReg.test(email)) {
+    //邮箱不符合规范
+    res.send('邮箱不符合规范');
+    return;
+  }
+  //调用堆栈中下一个中间件函数
+  next();
+}
+
 //注册路由
-app.post('/regist', function (req, res) {
+app.post('/regist', regTest, function (req, res) {
   /*
     1. 获取请求参数
     2. 验证密码和确认密码是否一致
@@ -31,11 +64,7 @@ app.post('/regist', function (req, res) {
     res.send('密码和确认密码不一致，请重新输入');
     return;
   }
-  // 3. 使用正则表达式验证用户填写的信息是否符合规则
-  var usernameReg = /^[0-9A-Za-z_]{5,10}$/;  //用户名可以包含英文数字下划线，长度为5-10位
-  var pwdReg = /^[0-9A-Za-z_]{6,18}$/;  //密码可以包含英文数字下划线，长度为6-18位
-  var emailReg = /^[0-9A-Za-z_]{3,10}@[0-9A-Za-z_]{2,6}\.com$/;
-  
+  /*// 3. 使用正则表达式验证用户填写的信息是否符合规则
   //验证用户名
   if (!usernameReg.test(username)) {
     //用户名不符合规范
@@ -53,7 +82,7 @@ app.post('/regist', function (req, res) {
     //邮箱不符合规范
     res.send('邮箱不符合规范');
     return;
-  }
+  }*/
   // 4. 去数据库中查找账号是否存在
   Users.findOne({username: username}, function (err, data) {
     if (!err) {
@@ -80,12 +109,45 @@ app.post('/regist', function (req, res) {
     }
   })
   
-  
 })
 
 //登录路由
-app.post('/login', function (req, res) {
-
+app.post('/login', regTest, function (req, res) {
+  /*
+    1. 获取请求参数
+    2. 使用正则表达式验证用户填写的信息是否符合规则
+    3. 去数据库中查找用户名和密码是否正确
+    4. 全部正确才能登录成功
+   */
+  // 1. 获取请求参数
+  var username = req.body.username;
+  var pwd = req.body.pwd;
+  /*//  2. 使用正则表达式验证用户填写的信息是否符合规则
+  //验证用户名
+  if (!usernameReg.test(username)) {
+    //用户名不符合规范
+    res.send('用户名不符合规范，可以包含英文数字下划线，长度为5-10位');
+    return;
+  }
+  //验证密码
+  if (!pwdReg.test(pwd)) {
+    //密码不符合规范
+    res.send('密码不符合规范，密码可以包含英文数字下划线，长度为6-18位');
+    return;
+  }*/
+  // 3. 去数据库中查找用户名和密码是否正确
+  Users.findOne({username: username, pwd: pwd}, function (err, data) {
+    if (!err) {
+      if (data) {
+        res.send('登录成功');
+      } else {
+        res.send('登录失败，用户名或密码错误');
+      }
+    } else {
+      res.send('网络不稳定，请刷新一下~');
+    }
+  })
+  
 })
 
 app.listen(3000, function (err) {
