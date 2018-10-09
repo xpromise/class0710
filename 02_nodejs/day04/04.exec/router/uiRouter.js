@@ -8,12 +8,12 @@ var router = express.Router();
 //用户注册页面
 router.get('/regist', function (req, res) {
   //返回注册页面给用户
-  res.sendFile(path.resolve(__dirname, 'public/regist.html'));
+  res.sendFile(path.resolve(__dirname, '../public/regist.html'));
 })
 //用户登录页面
 router.get('/login', function (req, res) {
   //返回登录页面给用户
-  res.sendFile(path.resolve(__dirname, 'public/login.html'));
+  res.sendFile(path.resolve(__dirname, '../public/login.html'));
 })
 //暴露出去
 module.exports = router;
