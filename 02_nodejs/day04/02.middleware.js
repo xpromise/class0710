@@ -34,7 +34,6 @@ app.use(express.static('public'));
 //解析请求体数据为对象，将其挂载到req.body上
 app.use(bodyParser.urlencoded({extended: true}));
 
-
 //中间件
 // 默认情况下，能够接受处理所有的请求，不会再执行后面的中间件函数/路由
 // 调用next方法才能接下来执行后面的中间件函数/路由
