@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>webstorage</title>
+</head>
+<body>
+<script>
+  /*
+    浏览器本地离线缓存：WebStorage
+      localStorage  本地缓存，特点：持久，一直存在
+      sessionStorage 会话缓存，特点：临时，一次会话生效（浏览器打开创建，浏览器关闭销毁）
+        缓存数据的大小最多5MB左右
+        storage.setItem(xxx, xxx)  保存数据
+          将要保存的数据转化成json字符串
+        storage.getItem(xxx)       获取数据
+        storage.removeItem(xxx)    删除数据
+
+      localForage  Offline storage, improved. Wraps IndexedDB, WebSQL, or localStorage using a simple but powerful API.
+   */
+  // localStorage.setItem('username', 'sunwukong');
+  // console.log(localStorage.getItem('username'));
+  // var data = [{username: '孙悟空', age: 18}, {username: '猪八戒', age: 20}];
+  // localStorage.setItem('data', JSON.stringify(data));
+  // console.log(JSON.parse(localStorage.getItem('data')));
+  // localStorage.removeItem('username');
+
+  // sessionStorage.setItem('age', 18);
+  // console.log(sessionStorage.getItem('age'));
+
+
+</script>
+</body>
+</html>

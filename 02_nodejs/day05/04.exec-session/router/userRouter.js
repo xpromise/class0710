@@ -136,8 +136,8 @@ router.post('/login', regTest, function (req, res) {
   Users.findOne({username: username, pwd: sha1(pwd)}, function (err, data) {
     if (!err) {
       if (data) {
-        //用户登录成功~返回一个代表用户登录信息的cookie
-        res.cookie('user_id', data.id, {maxAge: 1000 * 3600 * 24 * 7});
+        //用户登录成功~设置session对象
+        req.session.user_id = data.id;
         res.redirect('/userCenter');
       } else {
         errMsg.err = '登录失败，用户名或密码错误';
