@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ejs</title>
+</head>
+<body>
+  <!--
+    ejs能在写html代码地方写js代码
+      1. < %  % >  能在其中写任意的js代码  没有任何输出到页面上，只有在服务器有输出
+      2. < %=  % > 输出转义的数据到页面上   安全性更好   不能用户的任何输入
+      3. < %-  % > 输出非转义的数据到页面上
+  -->
+  <% console.log('hello ejs');  if (true) {console.log('if进来~');} %>
+
+  <ul>
+    <% for (var i = 0; i < data.length; i++) { %>
+      <li>姓名：<%= data[i].username %> 年龄： <%= data[i].age %></li>
+    <% } %>
+  </ul>
+
+ <% if (!flag) { %>
+  <h1>xxxxxx</h1>
+ <% } %>
+
+</body>
+</html>
