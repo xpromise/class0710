@@ -1,4 +1,4 @@
-var express= require('express');
+var express = require('express');
 var app = express();
 /*
   ejs: 高效js模板引擎，用来编译解析设置模板语法
