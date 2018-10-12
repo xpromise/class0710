@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ajax练习</title>
+</head>
+<body>
+<input type="text" placeholder="请输入验证码"> <button id="btn">点击发送验证码</button>
+<script type="text/javascript">
+  var btn = document.getElementById('btn');
+
+  /*
+    1. 用户需要等60s才能点击第二次
+    2. 倒计时效果
+   */
+
+  /*var flag = false;
+
+  btn.onclick = function () {
+
+    if (flag) return;
+
+    flag = true;
+    //发送ajax请求
+    //创建xhr对象
+    var xhr = new XMLHttpRequest();
+    //绑定事件监听
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText);
+      }
+    }
+    //设置请求信息
+    xhr.open('GET', 'http://localhost:3000/ajax');
+    //发送请求
+    xhr.send();
+
+    //设置延时器
+    setTimeout(function () {
+      flag = false;
+    }, 10000)
+
+  }*/
+
+
+  //上一次点击时间
+  var lastTime = 0;
+  //倒计时总时间
+  var TIME = 5;
+  //定时器timer
+  var timer = null;
+
+    btn.onclick = function () {
+
+    //获取当前时间
+    var nowTime = Date.now();
+    //判断当前时间-上一次时间是否大于60s
+    if (nowTime - lastTime <= TIME * 1000) return;
+
+
+    //倒计时效果
+    btn.innerHTML = TIME + 's';
+    //改变颜色
+    btn.style.color = 'gray';
+
+    var time = TIME;
+
+    timer = setInterval(function () {
+      //改变文字显示
+      btn.innerHTML = --time + 's';
+      //判断用户是否可以再次点击
+      if (time === 0) {
+        btn.innerHTML = '点击发送验证码';
+        btn.style.color = 'black';
+        //清除定时器
+        clearInterval(timer);
+      }
+    }, 1000)
+
+    //发送ajax请求
+    //创建xhr对象
+    var xhr = new XMLHttpRequest();
+    //绑定事件监听
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText);
+      }
+    }
+    //设置请求信息
+    xhr.open('GET', 'http://localhost:3000/ajax');
+    //发送请求
+    xhr.send();
+
+    //同步上一次的点击时间
+    lastTime = nowTime;
+
+  }
+
+</script>
+</body>
+</html>
