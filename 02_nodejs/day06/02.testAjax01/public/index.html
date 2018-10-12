@@ -58,6 +58,9 @@
     var nowTime = Date.now();
     //判断当前时间-上一次时间是否大于60s
     if (nowTime - lastTime <= TIME * 1000) return;
+    //同步上一次的点击时间
+    lastTime = nowTime;
+
     //倒计时效果
     btn.innerHTML = TIME + 's';
     //改变颜色
@@ -68,7 +71,7 @@
       //改变文字显示
       btn.innerHTML = --time + 's';
       //判断用户是否可以再次点击
-      if (time === 0) {
+      if (time <= 0) {
         btn.innerHTML = '点击发送验证码';
         btn.style.color = 'black';
         //清除定时器
@@ -85,8 +88,7 @@
     //不管之前有无发送ajax请求，都得重新发送一次
     hasXHR = sendAJAX('GET', 'http://localhost:3000/ajax');
 
-    //同步上一次的点击时间
-    lastTime = nowTime;
+
 
   }
 
