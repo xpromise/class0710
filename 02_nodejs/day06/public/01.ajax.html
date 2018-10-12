@@ -23,8 +23,22 @@
 
     // 2. 绑定事件监听 onreadystatechange
     //专门监听readyState值的变化
+    /*
+      readyState值一共5种：
+        0：xhr对象已经创建，open方法还没调用
+        1：open方法已经调用，但send方法还未调用
+        2：send方法已经调用了，返回了响应头和响应状态码数据，响应体还未返回
+        3：响应体部分数据已经接受到了，如果是纯文本信息，在此阶段就接受完了
+        4：响应体全部数据接受完毕
+     */
     xhr.onreadystatechange = function () {
       //请求状态发生变化时会触发回调函数
+      if (xhr.readyState === 2) {
+        //获取响应头
+        console.log(xhr.getResponseHeader('Date'));
+        //获取响应状态码
+        console.log(xhr.status);
+      }
       //判断请求是否成功
       if (xhr.readyState === 4 && xhr.status === 200) {
         //请求成功，并且响应数据接受到了
@@ -35,11 +49,28 @@
 
     // 3. 设置请求信息
     //设置请求的地址、请求方式、请求头信息
-    xhr.open('GET', 'http://localhost:3000/testAjax?username=sunwukong&pwd=123123');
+    /*
+      xhr.open(请求方式, 请求地址)
+
+      在发送相同请求时，
+        chrome/firefox 会默认缓存第一次请求，当重新发送相同的请求时，默认走缓存，状态码为304（还是访问了服务器）
+        ie 会默认缓存第一次请求，当重新发送相同的请求时，默认走缓存，状态码为200（没有再次访问服务器）
+          问题：如果是需要实时更新的数据，ie就更新不了
+          解决：让每一次请求不一样，就不会读取缓存（加请求参数为时间戳, 随机数）
+
+    */
+    xhr.open('GET', 'http://localhost:3000/testAjax?username=sunwukong&pwd=123123&date=' + Date.now());
+    // xhr.open('POST', 'http://localhost:3000/testAjax');
     // xhr.setRequestHeader('Content-type', 'text/html');
 
     // 4. 发送请求
+    /*
+      xhr.send(body)  post请求请求数据：body请求体数据
+     */
     xhr.send();
+    // xhr.send(JSON.stringify({username: 'sunwukong', pwd: 123456}));
+
+
 
 
 
