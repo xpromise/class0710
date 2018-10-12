@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>原生的ajax</title>
+</head>
+<body>
+<button id="btn">点击发送ajax请求</button>
+<script type="text/javascript">
+  var btn = document.getElementById('btn');
+
+  btn.onclick = function () {
+    /*
+      发送ajax请求
+      步骤：
+        1. 创建xhr对象
+        2. 绑定事件监听 onreadystatechange
+        3. 设置请求信息
+        4. 发送请求
+     */
+    // 1. 创建xhr对象
+    var xhr = new XMLHttpRequest();
+
+    // 2. 绑定事件监听 onreadystatechange
+    //专门监听readyState值的变化
+    xhr.onreadystatechange = function () {
+      //请求状态发生变化时会触发回调函数
+      //判断请求是否成功
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        //请求成功，并且响应数据接受到了
+        //打印输出请求回来的数据
+        console.log(xhr.responseText);
+      }
+    }
+
+    // 3. 设置请求信息
+    //设置请求的地址、请求方式、请求头信息
+    xhr.open('GET', 'http://localhost:3000/testAjax?username=sunwukong&pwd=123123');
+    // xhr.setRequestHeader('Content-type', 'text/html');
+
+    // 4. 发送请求
+    xhr.send();
+
+
+
+  }
+
+</script>
+</body>
+</html>
