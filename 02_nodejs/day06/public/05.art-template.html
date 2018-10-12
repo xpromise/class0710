@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>art-template</title>
+</head>
+<body>
+
+<div id="wrap"></div>
+
+<script type="text/html" id="tpl1">
+  <% for(var i = 0;i < lists.length;i++) { %>
+    <h2>用户名：<%= lists[i].username %></h2>
+    <h2>年龄：<%- lists[i].age %></h2>
+  <% } %>
+</script>
+
+<script type="text/html" id="tpl2">
+  {{each lists}}
+    <h2>用户名：{{$value.username}} - {{$index}}</h2>
+    <h2>年龄：{{@$value.age}}</h2>
+  {{/each}}
+  {{if false}}
+    <h2>这是if判断</h2>
+  {{/if}}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="./js/template-web.js"></script>
+<script type="text/javascript">
+  /*
+    art-template使用：
+      1. 引入js文件 template-web.js  通常和jQuery一起使用
+      2. 定义模板内容
+        - 定义一个script标签，修改type属性为 text/html
+        - 定义id，方便查找当前元素
+      3. 将模板编译成标签字符串
+      4. 将编译好的标签字符串插入到指定容器中生效
+   */
+  //定义数据
+  var data = {
+    lists: [{
+      username: '<p>孙悟空</p>',
+      age: '<p>18</p>'
+    }, {
+      username: '<p>猪八戒</p>',
+      age: '<p>20</p>'
+    }]
+  }
+  //将数据渲染到模板上，编译成标签字符串
+  var str = template('tpl2', data);
+  console.log(str);
+  //将编译好的标签字符串插入到指定容器中生效
+  $('#wrap').html(str);
+
+</script>
+</body>
+</html>
