@@ -10,8 +10,9 @@
   var btn = document.getElementById('btn');
 
   /*
-    1. 用户需要等60s才能点击第二次
+    1. 用户需要等60s才能点击第二次：函数节流
     2. 倒计时效果
+    3. 取消上一次发送ajax请求
    */
 
   /*var flag = false;
@@ -49,6 +50,8 @@
   var TIME = 5;
   //定时器timer
   var timer = null;
+  //表示上一次发送ajax请求
+  var hasXHR = null;
 
     btn.onclick = function () {
 
@@ -56,13 +59,10 @@
     var nowTime = Date.now();
     //判断当前时间-上一次时间是否大于60s
     if (nowTime - lastTime <= TIME * 1000) return;
-
-
     //倒计时效果
     btn.innerHTML = TIME + 's';
     //改变颜色
     btn.style.color = 'gray';
-
     var time = TIME;
 
     timer = setInterval(function () {
@@ -77,6 +77,21 @@
       }
     }, 1000)
 
+    if (hasXHR) {
+      //如果存在，说明之前发送过ajax请求
+      //取消之前发送的ajax，重新发送一次
+      hasXHR.abort();  //取消当前xhr对象发送的请求，并不是不发送请求，拒绝接受响应
+    }
+
+    //不管之前有无发送ajax请求，都得重新发送一次
+    hasXHR = sendAJAX('GET', 'http://localhost:3000/ajax');
+
+    //同步上一次的点击时间
+    lastTime = nowTime;
+
+  }
+
+  function sendAJAX(method, url) {
     //发送ajax请求
     //创建xhr对象
     var xhr = new XMLHttpRequest();
@@ -84,16 +99,16 @@
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         console.log(xhr.responseText);
+        //响应成功，初始化hasXHR变量
+        hasXHR = null;
       }
     }
     //设置请求信息
-    xhr.open('GET', 'http://localhost:3000/ajax');
+    xhr.open(method, url);
     //发送请求
     xhr.send();
-
-    //同步上一次的点击时间
-    lastTime = nowTime;
-
+    //返回xhr对象出去
+    return xhr;
   }
 
 </script>
