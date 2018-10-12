@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jsonp</title>
+</head>
+<body>
+  <button id="btn">点击发送请求</button>
+  <script type="text/javascript">
+    var btn = document.getElementById('btn');
+    /*
+      jsonp特点：非官方的解决方案，纯粹凭借程序员聪明才智想出来的解决方案
+        1. 兼容性很好
+        2. 只能发送get请求，因为script标签只能发送get请求
+     */
+    btn.onclick = function () {
+      //创建一个script
+      var script = document.createElement('script');
+      //设置请求成功的全局回调函数
+      window.getData = function (data) {
+        console.log(data);
+      }
+      //getData({username: 'sunwukong', age: 18})
+      //设置script的src属性，用来发送请求
+      script.src = 'http://localhost:3000/testJSONP?callback=getData';
+      //让script生效
+      document.body.appendChild(script);
+    }
+  </script>
+</body>
+</html>
