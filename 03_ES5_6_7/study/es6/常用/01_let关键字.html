@@ -25,7 +25,49 @@
   * 使用let取代var是趋势
 -->
 <script type="text/javascript">
+  //let声明的变量在块作用域生效
+  // {}包着的就是块作用域
+  /*if (true) {
+    let username = 'sunwukong';
+    console.log(username);
+  }
+  console.log(username);  // Uncaught ReferenceError: username is not defined*/
 
+  //let声明的变量不存在变量提升
+  // console.log(a);  // Uncaught ReferenceError: a is not defined
+  // let a = 123;
+
+  //let声明的变量不能重复声明
+  /*let a = 123;
+  let a = 456;  // Uncaught SyntaxError: Identifier 'a' has already been declared
+  console.log(a);*/
+
+  //let就是为了取代var，兼容性不太好
+
+  //应用：
+  var btns = document.querySelectorAll('button');
+
+  /*for (var i = 0; i < btns.length; i++) {
+    (function (i) {
+      btns[i].onclick = function () {
+        alert(i);
+      }
+    })(i)
+  }*/
+
+  /*for (var i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+      alert(i);
+    }
+  }*/
+
+  //let产生块作用
+  for (let i = 0; i < btns.length; i++) {
+    //产生了三个块作用域，每个块作用域的i的值不一样
+    btns[i].onclick = function () {
+      alert(i);
+    }
+  }
 
 </script>
 </body>

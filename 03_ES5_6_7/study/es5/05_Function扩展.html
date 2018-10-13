@@ -14,6 +14,19 @@
   * bind()是将函数返回
 -->
 <script type="text/javascript">
+  function fn() {
+    console.log(this);
+  }
+  var obj = {};
+  var newFn = fn.bind(obj, 1, 2, 3); //fn函数没有调用，并且fn函数this指向没有变化
+                                      //使用：强制改变回调函数this指向
+  fn();
+
+  console.log(newFn);
+  newFn();
+
+  fn.call(obj, 1, 2, 3)  //fn函数调用了，并且fn函数this指向为obj
+  fn.apply(obj, [1, 2, 3])  //fn函数调用了，并且fn函数this指向为obj
 
 </script>
 </body>
