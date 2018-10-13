@@ -91,7 +91,7 @@ router.post('/regist', regTest, function (req, res) {
         //没有找到指定用户
         // 5. 不存在，注册，将数据保存在数据库中
         console.log(sha1(pwd));  // 601f1889667efaebb33b8c12572835da3f027f78
-        Users.create({username: username, pwd: sha1(pwd), email: email}, function (err) {
+        Users.create({username, pwd: sha1(pwd), email}, function (err) {
           if (!err) {
             //注册成功，跳转到登录页面
             res.redirect('/login');

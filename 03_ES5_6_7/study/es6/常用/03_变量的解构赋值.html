@@ -16,6 +16,28 @@
   * 给多个形参赋值
 -->
 <script type="text/javascript">
+  const person = {
+    name: 'jack',
+    age: 18,
+    sex: '男',
+    address: '宏福苑',
+    phone: '1777777777'
+  }
+  /*const name = person.name;
+  const age = person.age;
+  const sex = person.sex;
+  const address = person.address;
+  const phone = person.phone;*/
+  //对象解构赋值
+  //解构等号右边的对象person，将值赋值给等号左边对应的变量（变量名必须和属性名相同）
+  const {name, age, sex, address, phone, hobby} = person;
+  console.log(name, age, sex, address, phone, hobby);
+
+  //数组的解构赋值
+  const arr = [1, 2, 3, 4];
+  //变量最终的值和所处的位置一一对应
+  const [a, b, c, d, e] = arr;
+  console.log(a, b, c, d, e);
 
 </script>
 </body>

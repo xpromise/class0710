@@ -12,6 +12,18 @@
 -->
 <script type="text/javascript">
 
+  const item = {
+    province: '16',
+    name: '北京市'
+  }
+
+  const html1 = '<option value="' + item.province + '">' + item.name + '</option>';
+
+  const html2 = `<option value="${item.province}">${item.name}</option>`;
+
+  console.log(html1);
+  console.log(html2);
+
 </script>
 </body>
 </html>

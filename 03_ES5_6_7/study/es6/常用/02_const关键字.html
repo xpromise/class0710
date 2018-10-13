@@ -15,6 +15,30 @@
   * 保存不用改变的数据
 -->
 <script type="text/javascript">
+  //创建块作用域
+  /*if (true) {
+    const a = 123;
+  }
+  console.log(a); // Uncaught ReferenceError: a is not defined*/
+
+  //不存在变量提升
+  /*console.log(a); // Uncaught ReferenceError: a is not defined
+  const a = 123;*/
+
+  //不能重复声明
+  /*const a = 123;  // Uncaught SyntaxError: Identifier 'a' has already been declared
+  const a = 456;
+  */
+
+  //定义的是常量，值不能修改
+  /*const a = 123;
+  a = 456;  // Uncaught TypeError: Assignment to constant variable.*/
+
+  /*
+    什么时候使用let和const？
+      1. 绝大部分变量用let定义，只有确定的不变量用const，95%以上的变量都是let定义的。
+      2. 绝大部分变量用const定义，只有确定可变量用let，95%以上的变量都是const定义的。（通常采用第二种，为了代码更有语义化）
+   */
 
 </script>
 </body>

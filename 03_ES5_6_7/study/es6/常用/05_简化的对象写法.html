@@ -19,6 +19,26 @@
   };
 -->
 <script type="text/javascript">
+  const name = 'jack';
+  const age = 18;
+
+  const person1 = {
+    name: name,
+    age: age,
+    setName: function (name) {
+      this.name = name;
+    }
+  }
+  console.log(person1);
+
+  const person2 = {
+    name,  //省略同名的属性
+    age,
+    setName (name) {  //省略function关键字
+      this.name = name;
+    }
+  }
+  console.log(person2);
 
 </script>
 </body>

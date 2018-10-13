@@ -26,6 +26,20 @@
   arr2.push(...arr1);
 -->
 <script type="text/javascript">
+  function sum(...args) {
+    //三点运算符将用户传入所有实参转化成一个真数组，保存在变量args中
+    console.log(args);
+    console.log(...args);
+    return args.reduce(function (prev, curr) {
+      return prev + curr;
+    })
+  }
+  console.log(sum(1, 2, 3, 4, 8));
+
+  const arr1 = [1, 2, 3, 4];
+  const arr2 = [5, ...arr1, 7];
+  console.log(arr2);
+
 
 </script>
 
