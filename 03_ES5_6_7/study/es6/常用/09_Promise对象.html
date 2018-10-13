@@ -7,7 +7,7 @@
 <body>
 <!--
 1. 理解:
-  * Promise对象: 代表了未来某个将要发生的事件(通常是一个异步操作)
+  * Promise对象: 代表了未来某个将要发生的事件(通常是一个异步操作)， 用来处理异步代码
   * 有了promise对象, 可以将异步操作以同步的流程表达出来, 避免了层层嵌套的回调函数(俗称'回调地狱')
   * ES6的Promise是一个构造函数, 用来生成promise实例
 2. 使用promise基本步骤(2步):
@@ -43,6 +43,95 @@
 -->
 
 <script type="text/javascript">
+
+  /*$.get('/a', function () {
+    console.log('a数据请求回来了');
+    $.get('/b', function () {
+      console.log('b数据请求回来了');
+      $.get('/c', function () {
+        console.log('c数据请求回来了');
+        //等所有数据请求回来了，在操作
+      })
+    })
+  })*/
+
+  /*//创建promise实例对象
+  const promise = new Promise((resolve, reject) => {
+    //在函数内部，执行异步的代码
+    //三种状态：1. 初始化状态 pending  2. 成功的状态 fullfilled  3. 失败的状态 rejected
+    //当我创建promise对象时，默认就是初始化状态
+    //当我调用resolve()，就会将promise状态改为成功的状态
+    //当我调用reject(), 就会将promise状态改为失败的状态
+    setTimeout(() => {
+      console.log('a数据请求回来了');
+      resolve('a数据'); //将promise状态改为成功的状态，一旦promise变为成功的状态就会立即触发成功的回调
+      // reject('error'); //将promise状态改为失败的状态，一旦promise变为失败的状态就会立即触发失败的回调
+    }, 1000)
+  })
+
+  /!*promise.then(result => {  //成功的回调
+    console.log(result); // 'a数据'
+    setTimeout(() => {
+      console.log('b数据请求回来了');
+    }, 1000)
+  }, error => { //失败的回调
+    console.log(error);
+  })*!/
+
+  //使用更多
+  promise
+    .then(res => {  //成功的回调
+      console.log(res);
+    })
+    .catch(err => {  //失败的回调
+      console.log(err);
+    })
+
+
+  // const promise1 = Promise.resolve('success');  //创建promise对象，立即将状态改为成功的状态
+  const promise1 = Promise.reject('error');  //创建promise对象，立即将状态改为失败的状态
+
+  promise1
+    .then(res => {  //成功的回调
+      console.log(res);
+    })
+    .catch(err => {  //失败的回调
+      console.log(err);
+    })*/
+
+  console.time();
+  
+  const promise1 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('a数据请求成功了'), 1000)
+  })
+
+  const promise2 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('b数据请求成功了'), 3000)
+  })
+
+  const promise3 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('c数据请求成功了'), 2000)
+  })
+
+  /*Promise.all([promise1, promise2, promise3])
+    .then(res => {  //需要数组中所有的promise对象都改为了成功的状态，此时才会触发成功的回调
+      console.timeEnd();
+      console.log(res);
+    })
+    .catch(err => {  //只要数组中的promise对象有一个改为失败的状态,就会立即触发失败的回调
+      console.timeEnd();
+      console.log(err);
+    });*/
+
+  Promise.race([promise1, promise2, promise3])  //只要数组中有一个的promise对象的状态发生了变化，就会触发相应的回调函数
+    .then(res => {
+      console.timeEnd();
+      console.log(`res:${res}`);
+    })
+    .catch(err => {
+      console.timeEnd();
+      console.log(`err:${err}`);
+    })
 
 </script>
 

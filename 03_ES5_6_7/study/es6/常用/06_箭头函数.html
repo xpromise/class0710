@@ -9,7 +9,6 @@
     <button id="btn1">测试箭头函数this_1</button>
     <button id="btn2">测试箭头函数this_2</button>
 
-
 <!--
 * 作用: 定义匿名函数
 * 基本语法:
@@ -28,6 +27,62 @@
         如果没有，则this是window。
 -->
 <script type="text/javascript">
+  function fn1() {}
+  const fn2 = function () {};
+  const fn3 = () => {};
+
+  //如果没有形参
+  const fn4 = () => {};
+  //如果有一个形参，可以省略()
+  const fn5 = x => {};
+  //如果有一个以上的形参
+  const fn6 = (x, y) => {};
+
+
+  //如果没有语句
+  const fn7 = () => {};
+  //如果只有一条语句，可以省略{}, 并且此时箭头函数返回值就是这条语句的值
+  const fn8 = () => console.log(123);
+  // console.log(fn8());
+  //如果有多条语句
+  const fn9 = () => {
+    console.log(123);
+    console.log(456);
+  };
+
+  // 当形参只有一个时，可以省略()，其他场景就不行
+  // 只有一条语句，可以省略{}, 并且此时箭头函数返回值就是这条语句的值
+
+  //箭头函数的this指向
+  const fn10 = () => console.log(this);
+  // fn10(); //window
+  // fn10.call({}) //window
+
+  const fn11 = function () {
+    console.log(this); //window  {}
+    const fn12 = () => console.log(this); // window  {}
+    fn12();
+  }
+  // fn11();
+  // fn11.call({});
+
+  const fn13 = function () {
+    console.log(this);  // {name: 'jack'}
+    const fn14 = function () {
+      console.log(this); // {name: 'rose'}
+      const fn15 = () => console.log(this); // {name: 'rose'}
+      fn15();
+    }
+    fn14.call({name: 'rose'});
+  }
+
+  fn13.call({name: 'jack'});
+
+  /*
+    箭头函数this指向和包裹它的最近的一层函数的this值一致的
+    如果没有包裹它的函数，它指向window
+    不能通过call/apply/bind方法强制改变this指向
+   */
 
 </script>
 
