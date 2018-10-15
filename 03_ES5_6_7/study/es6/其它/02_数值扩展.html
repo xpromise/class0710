@@ -14,7 +14,14 @@
 6. Math.trunc(i) : 直接去除小数部分
 -->
 <script type="text/javascript">
-
+  console.log(0b1010);  // 10
+  console.log(0o666);  // 438
+  console.log(Number.isFinite(Infinity));  // false
+  console.log(Number.isNaN(NaN)); // true
+  console.log(Number.isInteger(1.1)); //false
+  console.log(Number.parseInt('0.123abc456')); // 0
+  console.log(Number.parseInt('abc456')); // NaN
+  console.log(Math.trunc(1.23456));  // 1
 </script>
 </body>
 </html>

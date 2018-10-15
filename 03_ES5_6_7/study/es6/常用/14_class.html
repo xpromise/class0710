@@ -15,6 +15,54 @@
 6. 重写从父类中继承的一般方法
 -->
 <script type="text/javascript">
+  
+  /*function Father(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  Father.prototype.setName = name => this.name = name;
 
+  function Son(name, age, sex) {
+    Father.call(this, name, age);
+    this.sex = sex;
+  }
+
+  Son.prototype = new Father();
+  Son.prototype.constructor = Son;
+  Son.prototype.setAge = age => this.age = age;
+
+  const s = new Son('jack', 18, '男');
+  console.log(s);*/
+
+  //定义类
+  class Father {
+    constructor (name, age) {
+      //定义类的属性
+      this.name = name;
+      this.age = age;
+    }
+    //定义类的方法
+    setName (name) {
+      this.name = name;
+    }
+  }
+  const f = new Father('jack', 18);
+  console.log(f);
+
+  //定义子类继承父类
+  class Son extends Father{
+    constructor (name, age, sex) {
+      super(name, age);  //如果使用extends关键字实现继承，子类中必须在constructor函数中调用super方法，继承父类的属性和方法的
+      this.sex = sex;
+    }
+    setAge (age) {
+      this.age = age;
+    }
+  }
+  const s = new Son('jack', 18, '男');
+  console.log(s);
+
+
+  
 </script>
 </html>
