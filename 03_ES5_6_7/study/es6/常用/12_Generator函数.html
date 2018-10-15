@@ -29,7 +29,7 @@
 <script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
 
-  //创建generator函数，惰性函数
+  /*//创建generator函数，惰性函数
   function* generator() {
     console.log('a语句执行了');
     //result的值和下一次next方法调用传参有关
@@ -48,7 +48,60 @@
   //next方法返回值中的value就是你遇到yield关键字后面表达式的值
   console.log(iteratorObj.next('111'));  // {value: 123, done: false}
   console.log(iteratorObj.next('222'));  // {value: 456, done: false}
-  console.log(iteratorObj.next('333'));  // {value: undefined, done: true}
+  console.log(iteratorObj.next('333'));  // {value: undefined, done: true}*/
+  //创建promise对象
+  const promise1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('数据a请求成功~');
+    }, 2000)
+  })
+
+  const promise2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('数据b请求成功~');
+    }, 2000)
+  })
+  //创建generator函数
+  function* generator() {
+    //跟着异步的代码
+    let result = yield promise1;
+    console.log(result);
+    yield promise2;
+  }
+  //执行generator函数，返回遍历器对象
+  const iteratorObj = generator();
+  //执行generator函数中的代码,promise1
+  const {value} = iteratorObj.next();
+  
+  value
+    .then(res => {
+      console.log(res);
+      //继续执行generator函数中的代码，将res传递给函数中的result
+      const {value} = iteratorObj.next(res);
+      //promise2
+      return value;
+    })
+    .catch(err => console.log(err))
+    .then(res => {
+      console.log(res);
+    })
+
+
+  //给对象手动部署iterator接口
+  let obj = {name: 'jack', age: 18}
+  obj[Symbol.iterator] = function* () {
+    yield obj.name;
+    yield obj.age;
+    yield 333;
+  }
+
+  for (let value of obj) {
+    console.log(value);
+  }
+
+  //只要部署了iterator接口，就能使用三点运算符
+  console.log(...obj);
+
 
 
 </script>

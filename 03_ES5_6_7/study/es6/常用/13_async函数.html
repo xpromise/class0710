@@ -24,7 +24,31 @@
 -->
 <script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('数据请求回来了');
+      resolve('数据请求回来了');
+    }, 2000)
+  })
 
+  //创建async函数
+  async function asyncFn() {
+    console.log('asyncFn函数开始执行了');
+    //执行异步代码
+    //await关键字返回值就是后面跟着的promise对象的返回值
+    const result = await promise;
+    console.log(result);
+    console.log('asyncFn函数执行完毕了');
+    // return 123;
+  }
+  //执行async函数，会立即执行其中的代码
+  //当遇到await关键字时会停止，直到后面异步代码promise对象执行完毕
+  //当promise对象状态改为成功或者失败的时候，会接着执行下面的代码
+  //async函数默认返回值是promise对象，刚开始执行代码时状态是初始化状态，当执行完所有代码后，状态为成功的状态
+  // console.log(asyncFn());
+  asyncFn()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
 </script>
 
 </body>
