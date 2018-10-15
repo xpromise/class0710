@@ -16,6 +16,20 @@
 -->
 
 <script type="text/javascript">
+  console.log(NaN == NaN); // false
+  console.log(0 == -0); // true
+  console.log(Object.is(NaN, NaN)); // true
+  console.log(Object.is(0, -0)); // false
+
+  const o1 = {name: 'jack'};
+  const o2 = {age: 18, sex: {option1: '男', option2: '女'}};
+  let o3 = {};
+  Object.assign(o3, o1, o2);  //浅度克隆
+  console.log(o3);
+  o3.sex.option3 = '人妖';
+  console.log(o2);
+
+  console.log(o1.__proto__);
 
 </script>
 </body>

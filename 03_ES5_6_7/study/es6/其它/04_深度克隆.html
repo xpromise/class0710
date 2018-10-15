@@ -32,6 +32,97 @@
         5). 深拷贝包含函数数据的对象/数组
 -->
 <script type="text/javascript">
+  /*let a = 123;
+  let b = a;
+  b = 456;
+  console.log(a); //123  如果是基本数据类型，克隆是值，保存了新的一份克隆的值，不会对原来的数据产生影响
+
+  let o1 = {a: 123};
+  let o2 = o1;
+  o1.a = 456;
+  console.log(o2.a); //456  如果是引用数据类型，克隆是地址值，他们指向同一片内存
+
+  const arr1 = [1, 2, 3, {o1: '男', o2: '女'}];
+  const arr2 = [4, 5, 6];
+  const arr3 = arr2.concat(arr1);  //浅度克隆
+  arr3[6].o3 = '人妖';
+  console.log(arr3);
+  console.log(arr1);*/
+
+  //实现深度克隆
+  /*const arr1 = [1, 'str', true, {o1: '男', o2: '女'}, () => {}, [{a: 1}]];
+  // console.log(JSON.stringify(arr1));  //json没办法转化函数
+  const arr2 = JSON.parse(JSON.stringify(arr1)); //实现深度克隆，但是有缺陷，没办法克隆函数
+  arr2[3].o3 = '人妖';
+  console.log(arr2);
+  console.log(arr1);*/
+
+  //自定义函数实现深度克隆
+  /*
+    要特殊处理就是对象和数组，其他类型直接赋值
+   */
+  /*const num = 123;
+  const str = '123';
+  const n = null;
+  const o = {};
+  const f = () => {};
+  const a = [];
+  const t = new Date()
+  const reg = /123/;
+
+  console.log(Object.prototype.toString.call(num).slice(8, -1)); // [object Number]
+  console.log(Object.prototype.toString.call(str).slice(8, -1)); // [object String]
+  console.log(Object.prototype.toString.call(n).slice(8, -1)); // [object Null]
+  console.log(Object.prototype.toString.call(o).slice(8, -1)); // [object Object]
+  console.log(Object.prototype.toString.call(f).slice(8, -1)); // [object Function]
+  console.log(Object.prototype.toString.call(a).slice(8, -1)); // [object Array]
+  console.log(Object.prototype.toString.call(t).slice(8, -1)); // [object Date]
+  console.log(Object.prototype.toString.call(reg).slice(8, -1)); // [object RegExp]*/
+
+  //检测数据类型
+  function checkType(x) {
+    return Object.prototype.toString.call(x).slice(8, -1);
+  }
+
+  function deepClone(obj) {
+    //检测数据类型是否是对象或者数据，如果是我就进行深度克隆，如果不是直接返回原数据
+    const type = checkType(obj);
+    //初始化一个变量，代表将要返回给用户的克隆来的数据
+    let result = null;
+    if (type === 'Object') {
+      result = {};
+    } else if (type === 'Array') {
+      result = [];
+    } else {
+      return obj;
+    }
+    //遍历要克隆的对象
+    for (let key in obj) {
+      //如果是对象，就是属性名，如果是数组，就是下标
+      //当前属性/下标对应的值
+      const value = obj[key];
+      //判断value是否为对象或者数组，如果是，再来一次  递归调用
+      if (checkType(value) === 'Object' || 'Array') {
+        //将新克隆出来的对象/数组，赋值给当前属性/下标
+        result[key] = deepClone(value); //***********
+        //result[3] = {o1: '男', o2: '女'}
+        // const arr1 = [1, 'str', true, {o1: '男', o2: '女'}, () => {}, [{a: 1}]];
+      } else {
+        //克隆数据
+        result[key] = value;
+      }
+    }
+    //将克隆出来的对象返回出去
+    return result;
+  }
+
+  const arr1 = [1, 'str', true, {o1: '男', o2: '女'}, () => {}, [{a: 1}]];
+  const arr2 = deepClone(arr1);
+  console.log(arr2);
+  arr2[3].o3 = '人妖';
+  arr2[5][0].b = 2;
+  console.log(arr1);
+
 
 </script> 
 </body>

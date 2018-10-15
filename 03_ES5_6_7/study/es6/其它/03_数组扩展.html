@@ -19,6 +19,22 @@
 4. findIndex(function(value, index, arr){return true}) : 找出第一个满足条件返回true的元素下标
 -->
 <script type="text/javascript">
+  const btns = document.querySelectorAll('button');
+  console.log(btns); //类数组
+  console.log(Array.from(btns));
+
+  console.log(Array.of(1, true, {username: 123}));
+  console.log([1, true, {username: 123}]);
+
+  const arr = [1, true, {username: 123}, 4, 6, 8];
+
+  /*const result = arr.find(function (item, index, arr) {
+    return item > 3;
+  })*/
+  const result = arr.findIndex(function (item, index, arr) {
+    return item > 3;
+  })
+  console.log(result);
 
 </script>
 </body>
