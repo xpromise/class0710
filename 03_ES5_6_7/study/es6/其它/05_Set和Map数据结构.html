@@ -26,6 +26,63 @@
 -->
 
 <script type="text/javascript">
+  // Set容器 : 无序不可重复的多个value的集合体
+  /*const set1 = new Set();
+  console.log(set1);
+  const set2 = new Set([1, 2, 3, 8, 7, 9 ,3, 5, 2]);
+  console.log(set2);
+  // * add(value)  添加数据
+  set2.add(10);
+  console.log(set2);
+  // * delete(value) 删除数据
+  set2.delete(10);
+  console.log(set2);
+  // * has(value) 判断数据是否存在
+  console.log(set2.has(1));
+  // * size 容器的长度
+  console.log(set2.size);
+  // * clear() 清除所有数据
+  // set2.clear();
+  // console.log(set2);
+
+  //数组去重
+  const arr = [1, 2, 3, 8, 7, 9 ,3, 5, 2];
+  console.log([...new Set(arr)]);
+
+  for (let value of set2) {
+    console.log(value);
+  }*/
+
+  // Map容器 : 无序的 key不重复的多个key-value的集合体
+  const map1 = new Map([['name', 123], [{username: 'jack'}, 'bob']]);
+  console.log(map1);
+  const map = new Map();
+  console.log(map);
+  map.set('name', 'jack');  //key不重复
+  map.set('name', 'bob');
+  const obj = {name: 'jack'};
+  map.set(obj, 'bob');  // key可以为任意数据类型
+  map.set({name: 'bob'}, 'jack');
+  console.log(map);
+  // * set(key, value)//添加
+  // * get(key)
+  console.log(map.get('name'));
+  console.log(map.get(obj));
+  // * delete(key)
+  map.delete(obj)
+  console.log(map);
+  // * has(key)
+  console.log(map.has(obj)); // false
+  // * size
+  console.log(map.size);
+  // * clear()
+  // map.clear();
+  // console.log(map);
+
+  for (let value of map) {
+    console.log(value);
+  }
+
 
 </script>
 </body>
