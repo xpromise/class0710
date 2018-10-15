@@ -29,6 +29,63 @@
 
   <script type="text/javascript">
 
+    /*//遍历器接口
+    function iterator(arr) {
+      //初始化下标为0
+      let index = 0;
+      //返回一个遍历器对象
+      return {
+        next () {
+          return arr.length === index ? {value: 'undefined', done: true} : {value: arr[index++], done: false};
+        }
+      }
+    }
+
+    const arr = [2, 4, 6, 8];
+    const obj = iterator(arr);
+    console.log(obj.next());
+    console.log(obj.next());
+    console.log(obj.next());
+    console.log(obj.next());
+    console.log(obj.next());*/
+
+    // 1、Array
+    /*const arr = [2, 4, 6, 8];
+    console.log(arr);
+    //只要部署了iterator接口，就能使用for of遍历
+    for (let value of arr) {
+      console.log(value);
+    }*/
+
+    // 2、arguments
+    function fn() {
+      console.log(arguments);
+
+      for (let value of arguments) {
+        console.log(value);
+      }
+    }
+    // fn(2, 4, 6, 8, 10);
+
+    // 3、set容器 后面讲
+    // 4、map容器 后面讲
+    // 5、String
+    /*const str = 'hello iterator';
+    console.log(str.__proto__);
+
+    for (let value of str) {
+      console.log(value);
+    }*/
+
+    // object默认不支持iterator
+    /*const obj = {name: 'jack', age: 18};
+    console.log(obj);
+
+    for (let value of obj) { // Uncaught TypeError: obj is not iterable
+      console.log(value);
+    }*/
+
+
   </script>
 </body>
 </html>

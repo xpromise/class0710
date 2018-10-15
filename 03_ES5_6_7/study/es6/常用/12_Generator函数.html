@@ -29,6 +29,27 @@
 <script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
 
+  //创建generator函数，惰性函数
+  function* generator() {
+    console.log('a语句执行了');
+    //result的值和下一次next方法调用传参有关
+    let result = yield 123;
+    console.log(result);
+    console.log('b语句执行了');
+    result = yield 456;
+    console.log(result);
+    console.log('c语句执行了');
+  }
+  //执行generator函数就返回一个遍历器对象, 遍历器对象上有一个next方法
+  //通过调用next方法才能执行generator函数中语句
+  const iteratorObj = generator();
+
+  //开始执行generator函数中语句，遇到yield关键字就会暂停一下
+  //next方法返回值中的value就是你遇到yield关键字后面表达式的值
+  console.log(iteratorObj.next('111'));  // {value: 123, done: false}
+  console.log(iteratorObj.next('222'));  // {value: 456, done: false}
+  console.log(iteratorObj.next('333'));  // {value: undefined, done: true}
+
 
 </script>
 </body>

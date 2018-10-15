@@ -33,6 +33,30 @@
 
 <script type="text/javascript">
 
+  //创建symbol
+  const symbol1 = Symbol('name');
+  const symbol2 = Symbol('age');
+  console.log(symbol1, symbol2);
+  console.log(typeof symbol1);
+
+  //一般在对象中使用
+  const person = {};
+  //设置必须以[]添加属性
+  person[symbol1] = 'jack';
+  person[symbol2] = '18';
+  console.log(person);
+  //读取必须以[]读取属性
+  console.log(person[symbol1]);
+  console.log(person[symbol2]);
+
+  // console.log(symbol1 + 123); // Uncaught TypeError: Cannot convert a Symbol value to a number
+  // console.log(symbol1 + 'str'); // Uncaught TypeError: Cannot convert a Symbol value to a string
+
+  for (let key in person) {
+    console.log(key);
+  }
+
+
 </script>
 
 </body>
