@@ -50,6 +50,23 @@ ES5给Object扩展了一些静态方法, 常用的2个:
   })
   console.log(person1);
 
+  let person3 = {};
+  Object.defineProperties(person3, {
+    name: {
+      writable: true,
+      enumerable: true,
+      configurable: true,
+      value: 'jack'
+    },
+    age: {
+      writable: true,
+      enumerable: true,
+      configurable: true,
+      value: '18'
+    }
+  })
+  console.log(person3);
+
 </script>
 </body>
 </html>
