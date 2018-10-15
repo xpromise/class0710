@@ -27,7 +27,7 @@
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       console.log('数据请求回来了');
-      resolve('数据请求回来了');
+      reject('数据请求a回来了');
     }, 2000)
   })
 
@@ -43,7 +43,8 @@
   }
   //执行async函数，会立即执行其中的代码
   //当遇到await关键字时会停止，直到后面异步代码promise对象执行完毕
-  //当promise对象状态改为成功或者失败的时候，会接着执行下面的代码
+  //当promise对象状态改为成功的时候，会接着执行下面的代码
+  //当promise对象状态改为是失败的时候，会结束async函数
   //async函数默认返回值是promise对象，刚开始执行代码时状态是初始化状态，当执行完所有代码后，状态为成功的状态
   // console.log(asyncFn());
   asyncFn()
