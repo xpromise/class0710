@@ -6,6 +6,7 @@
       使用：
         browserify 入口文件路径 -o 输出文件路径
         browserify ./src/app.js -o ./build/build.js
+     特点：同步加载，有缓存
  */
 const m1 = require('./module1');
 const {mul, count} = require('./module2');
