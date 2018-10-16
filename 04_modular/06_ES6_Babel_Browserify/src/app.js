@@ -5,6 +5,7 @@
     es6模块化语法现在不被服务器端和浏览器端识别，所以需要借助工具编译
       1. babel  专门用来语法转换（es6 --> es5）
         使用babel将es6的模块化语法编译成es5以下的语法（commonjs语法）
+        - 全局安装babel   npm i babel-cli -g
         - 下载 npm install --save-dev babel-cli babel-preset-env
         - 创建一个运行控制文件 .babelrc
           {
