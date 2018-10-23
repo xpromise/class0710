@@ -7,7 +7,7 @@ import data from "../json/data";
 import "../less/test1.less";
 import "../less/test2.less";
 
-console.log(add(30, 20));
+console.log(add(30, 30));
 console.log(mul(10, 10));
 console.log(name, age);
 console.log(data);

@@ -8,10 +8,13 @@
   定义配置文件 webpack.config.js ， 运行指令 webpack
  */
 const {resolve} = require('path');
+//使用插件必须引入插件模块
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   //入口
-  entry: './src/js/app.js',
+  entry: ['./src/js/app.js', './src/index.html'],  //将html资源导入进来
   //输出
   output: {
     filename: './js/built.js', //输出的文件名称
@@ -29,7 +32,42 @@ module.exports = {
         }, {
           loader: "less-loader" // 将less编译成css
         }]
+      },
+      { //用来处理图片资源  url-loader  file-loader
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,   // 8 * 1024  将8kb以下的图片转化成base64形式
+              publicPath: '../images',  // 决定引入图片url/src路径
+              outputPath: './images',   //决定图片文件的输出路径
+              name: '[hash:7].[ext]'  // 名字为7位的hash值 . 文件扩展名
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'  //将导入的html资源解析成webpack能识别的模块
+        }
       }
     ]
-  }
+  },
+  //插件
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html'  //以传入的html文件为模板，创建新的html文件, 并且自动引入js和css
+    }),
+    new webpack.NamedModulesPlugin(),  //热模替换没办法更新插件的配置，必须以loader的方法导入指定资源
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  //启动服务器  webpack-dev-server@2
+  devServer: {
+    contentBase: './build',
+    hot: true, //开启热模替换功能
+    port: 3000,
+    open: true  //自动打开浏览器
+  },
 }

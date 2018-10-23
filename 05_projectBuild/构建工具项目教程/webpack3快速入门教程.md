@@ -216,15 +216,15 @@
 		const HtmlWebpackPlugin = require('html-webpack-plugin');
 	* 配置Plugins
 		new CleanWebpackPlugin('build', {
-	      root: path.resolve(__dirname, '../')
-	    })
+      root: path.resolve(__dirname, '../')
+    })
 >以上就是build环境下的设置，可以生成打包后的文件
 >命令配置 "build" : "webpack --config webpack.config.build.js"
 
 ### 11、自动编译打包
     * 利用webpack开发服务器工具: webpack-dev-server
     * 下载
-        - npm install --save-dev webpack-dev-server
+        - npm install --save-dev webpack-dev-server@2
     * webpack配置
 	      devServer:{//配置此静态文件服务器，可以用来预览打包后项目
 		    contentBase: path.resolve(__dirname, 'dist'), //开发服务运行时的文件根目录
