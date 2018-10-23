@@ -22,8 +22,10 @@
 
 //统一暴露和分别暴露是一样的引入规则
 // import 对象的解构赋值 from 模块的路径（和commonjs一样）
-import {add, msg} from './module1';
-import {foo1, foo2} from './module2';
+import {add as hello, msg} from './module1';
+// import {foo1, foo2} from './module2';
+import * as fn from './module2';
+
 //默认暴露的引入规则: 直接写暴露内容的名称
 import Person from './module3';
 
