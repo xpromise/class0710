@@ -14,6 +14,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 //提取css成单独文件
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+//压缩css
+const CleanCSSPlugin = require("less-plugin-clean-css");
+
+const webpack = require('webpack');
 
 module.exports = {
   //入口
@@ -40,7 +44,13 @@ module.exports = {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
+          use: ['css-loader', 'postcss-loader', {
+            loader: "less-loader", options: {
+              plugins: [
+                new CleanCSSPlugin({ advanced: true })  //压缩css
+              ]
+            }
+          }]
         })
       },
       { //用来处理图片资源  url-loader  file-loader
@@ -99,11 +109,16 @@ module.exports = {
   //插件
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'  //以传入的html文件为模板，创建新的html文件, 并且自动引入js和css
+      template: './src/index.html',  //以传入的html文件为模板，创建新的html文件, 并且自动引入js和css
+      minify: {   //压缩html
+        collapseWhitespace: true,
+        removeComments: true
+      }
     }),
     new CleanWebpackPlugin('dist', {  //清除dist目录下的文件
       root: resolve(__dirname, '../')   //配置根路径
     }),
     new ExtractTextPlugin("./css/[name].[hash:7].css"), //提取css成单独文件
+    new webpack.optimize.UglifyJsPlugin()   //压缩js
   ],
 }
