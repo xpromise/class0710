@@ -110,36 +110,36 @@
 ### 7、打包css和图片文件
    * 安装样式的loader
     ```
-    npm install css-loader style-loader --save-dev
+    npm install css-loader style-loader less-loader less --save-dev
     npm install file-loader url-loader --save-dev
 	补充：url-loader是对象file-loader的上层封装，使用时需配合file-loader使用。
     ```
   * 配置loader
     ```
-    module: {
-      rules: [
-        {
-          test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ]
-        },
-        {
-          test: /\.(png|jpg|gif)$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                outputPath: 'images/', //决定输出文件的位置
-                publicPath: '../images/',
-                limit: 8 * 1024,  // 8kb大小以下的图片文件都用base64处理
-              }
+    {  //用来处理less文件的loader   style-loader css-loader less-loader less
+        test: /\.less$/,  //检测指定文件的正则
+        use: [{   //loader执行顺序从右往左 / 从后往前同步执行
+          loader: "style-loader" // 会生成一个style标签应用css样式
+        }, {
+          loader: "css-loader" // 将css转化成commonjs语法，添加到js代码中
+        }, {
+          loader: "less-loader" // 将less编译成css
+        }]
+      },
+      { //用来处理图片资源  url-loader  file-loader
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,   // 8 * 1024  将8kb以下的图片转化成base64形式
+              publicPath: '../images',  // 决定引入图片url/src路径
+              outputPath: './images',   //决定图片文件的输出路径
+              name: '[hash:7].[ext]'  // 名字为7位的hash值 . 文件扩展名
             }
-          ]
-        }
-      ]
-    }
+          }
+        ]
+      },
     ```
   * 向应用中添加2张图片:
     * 小图: img/logo.png
@@ -171,10 +171,6 @@
 		<div id="box1"></div>
 		<div id="box2"></div>
 	
-  * 执行打包命令：
-    ```
-    npm run build
-    ```
 ### 8、优化css
 	将style样式改为link标签引入css
 	* 安装插件
@@ -218,15 +214,13 @@
 		new CleanWebpackPlugin('build', {
       root: path.resolve(__dirname, '../')
     })
->以上就是build环境下的设置，可以生成打包后的文件
->命令配置 "build" : "webpack --config webpack.config.build.js"
 
 ### 11、自动编译打包
     * 利用webpack开发服务器工具: webpack-dev-server
     * 下载
         - npm install --save-dev webpack-dev-server@2
     * webpack配置
-	      devServer:{//配置此静态文件服务器，可以用来预览打包后项目
+	      devServer:{  //配置此静态文件服务器，可以用来预览打包后项目
 		    contentBase: path.resolve(__dirname, 'dist'), //开发服务运行时的文件根目录
 		    host: 'localhost', //主机地址
 		    port: 8080,  //端口号
@@ -234,14 +228,14 @@
 		  }
 
     * 命令配置
-        - "dev": "webpack-dev-server --config webpack.config.dev.js"
+        - "dev": "webpack-dev-server --config ./config/webpack.dev.js"
     * 编译打包应用并运行
         - npm run dev
->以上就是dev环境下的设置，可以自动在内存中生成打包后的文件并打开网页检查效果，有热更新功能。
+>以上就是开发环境下的设置，可以自动在内存中生成打包后的文件并打开网页检查效果，有热更新功能。
 
 ### 12、扩展css前缀
 	* 下载
-		npm install --save-dev postcss-loader
+		npm install --save-dev postcss-loader autoprefixer
 	* 配置文件
 		* 文件名： postcss.config.js
 		* 内容：
@@ -269,8 +263,12 @@
         }
 
 ### 13、压缩css
-	* 修改loader
-		{
+  * 下载
+    npm install --save-dev less-plugin-clean-css
+  * 引入
+    const CleanCSSPlugin = require("less-plugin-clean-css");
+  * 修改loader
+    {
       test: /\.less$/,
       use: ExtractTextPlugin.extract({
         fallback: "style-loader",
@@ -286,7 +284,7 @@
 
 ### 14、JS语法转化
 	* 下载
-		npm install --save-dev babel-core babel-loader babel-preset-es2015
+		npm install --save-dev babel-loader@8.0.0-beta.0 @babel/core @babel/preset-env
 	* 修改loader
 		{
       test: /\.js$/,
@@ -298,12 +296,10 @@
     }
 
 ### 15、压缩JS
-	* 下载
-		npm install --save-dev uglifyjs-webpack-plugin
 	* 引入plugins
-		const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+		const webpack = require('webpack')
 	* 配置plugins
-		new UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin()
 
 ### 16、压缩html
 	* 修改plugins
@@ -315,7 +311,7 @@
 	        collapseWhitespace: true
 	      }
 	    })
->以上就是prod环境下的设置，可以生成打包、压缩、语法转换等的文件
->命令配置 "prod" : "webpack --config webpack.config.prod.js"
+>以上就是生产环境下的设置，可以生成打包、压缩、语法转换等的文件
+>命令配置 "prod" : "webpack --config ./config/webpack.prod.js"
 		
 	  
