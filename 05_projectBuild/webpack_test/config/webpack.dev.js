@@ -52,6 +52,43 @@ module.exports = {
         use: {
           loader: 'html-loader'  //将导入的html资源解析成webpack能识别的模块
         }
+      },
+      {   //语法检查  jshint  jshint-loader
+        test: /\.js$/, // 涵盖 .js 文件
+        enforce: "pre", // 预先加载好 jshint loader
+        exclude: /node_modules/, // 排除掉 node_modules 文件夹下的所有文件
+        use: [
+          {
+            loader: "jshint-loader",
+            options: {
+              // 查询 jslint 配置项，请参考 http://www.jshint.com/docs/options/
+              // 例如
+              camelcase: true,
+              //jslint 的错误信息在默认情况下会显示为 warning（警告）类信息
+              //将 emitErrors 参数设置为 true 可使错误显示为 error（错误）类信息
+              emitErrors: true,
+              //jshint 默认情况下不会打断webpack编译
+              //如果你想在 jshint 出现错误时，立刻停止编译
+              //请设置 failOnHint 参数为true
+              failOnHint: true,
+              esversion: 6,    // 声明使用es6语法
+              undef: true,     // 禁止使用全局未定义的变量
+              globals: {
+                console: true   //声明全局变量
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       }
     ]
   },

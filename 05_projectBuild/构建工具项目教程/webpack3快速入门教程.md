@@ -189,10 +189,10 @@
 		]
 	* 修改loader
 		{
-      test: /\.css$/,
+      test: /\.less$/,
       use: ExtractTextPlugin.extract({
         fallback: "style-loader",
-        use: 'css-loader'
+        use: ['css-loader', 'less-loader']
       })
     }
 
@@ -261,42 +261,41 @@
 
 	* 修改loader
 		{
-          test: /\.css$/,
+          test: /\.less$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: ['css-loader', 'postcss-loader']
+            use: ['css-loader', 'postcss-loader', 'less-loader']
           })
         }
 
 ### 13、压缩css
 	* 修改loader
 		{
-          test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: [{
-              loader: 'css-loader',
-              options: {
-                minimize: true  //css压缩
-              }
-            }, 'postcss-loader',]
-          })
-        }
+      test: /\.less$/,
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: ['css-loader', 'postcss-loader', {
+            loader: "less-loader", options: {
+                plugins: [
+                    new CleanCSSPlugin({ advanced: true })
+                ]
+            }
+        }]
+      })
+    }
 
 ### 14、JS语法转化
 	* 下载
 		npm install --save-dev babel-core babel-loader babel-preset-es2015
 	* 修改loader
 		{
-          test: /\.js$/,
-          exclude: /node_modules/, //忽略文件
-          loader: 'babel-loader',
-          query: {
-            presets: [
-              require.resolve('babel-preset-es2015')
-            ]
-          }
-        }
+      test: /\.js$/,
+      exclude: /node_modules/, //忽略文件
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env']
+      }
+    }
 
 ### 15、压缩JS
 	* 下载
