@@ -11,6 +11,7 @@
 <script type="text/javascript" src="../js/react.development.js"></script>
 <script type="text/javascript" src="../js/react-dom.development.js"></script>
 <script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
 
 <script type="text/babel">
 
@@ -19,6 +20,65 @@
   1). 如果性别没有指定, 默认为男
   2). 如果年龄没有指定, 默认为18
   */
+
+  class Show extends React.Component {
+    //通过加上 static，就会给类添加属性
+    //不加 static，就会给实例对象添加属性
+    static propTypes = {
+      name: PropTypes.string.isRequired,
+      sex: PropTypes.string,
+      age: PropTypes.number
+    }
+    //给属性添加默认值
+    static defaultProps = {
+      sex: '女',
+      age: 20
+    }
+
+    constructor (props) {
+      // console.log(this);  //不能在super方法之前使用this
+      super(props);
+      console.log(this);
+      console.log(props);
+    }
+
+    render () {
+      // console.log(this);
+      //获取标签属性值
+      const {name, age, sex} = this.props;
+      return (
+        <ul>
+          <li>姓名: {name}</li>
+          <li>性别: {sex}</li>
+          <li>年龄: {age}</li>
+        </ul>
+      )
+    }
+  }
+
+  //定义数据
+  const person = {
+    name: 'Jack',
+    sex: '男',
+    age: 18
+  }
+ /* //声明组件要接受属性是什么, 接受的属性类型
+  Show.propTypes = {
+    name: PropTypes.string.isRequired,
+    sex: PropTypes.string,
+    age: PropTypes.number
+  }
+  //给属性添加默认值
+  Show.defaultProps = {
+    sex: '女',
+    age: 20
+  }*/
+
+  //通过props / 标签属性方式，由组件外向组件内传递数据
+  // ReactDOM.render(<Show name={person.name} sex={person.sex} age={person.age}/>, document.getElementById('example1'));
+  // ReactDOM.render(<Show name={person.name}/>, document.getElementById('example1'));
+  ReactDOM.render(<Show {...person}/>, document.getElementById('example1'));
+
 
 </script>
 </body>
