@@ -7,5 +7,23 @@
 <body>
   <div id="test1"></div>
   <div id="test2"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript">
+    //创建虚拟DOM对象
+    const vDOM1 = React.createElement('h2', {id: 'myId1'}, 'Hello React1');
+    //渲染虚拟DOM对象到页面指定容器中
+    ReactDOM.render(vDOM1, document.getElementById('test1'));
+  </script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    //创建虚拟DOM对象
+    const id = 'myId2';
+    const content = 'Hello React2';
+    const vDOM2 = <h2 id={id}>{content}</h2>;
+    console.log(vDOM2);
+    //渲染虚拟DOM对象到页面指定容器中
+    ReactDOM.render(vDOM2, document.getElementById('test2'));
+  </script>
 </body>
 </html>

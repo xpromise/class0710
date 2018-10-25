@@ -7,5 +7,30 @@
 <body>
   <h2>前端JS框架列表</h2>
   <div id="example1"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+    //定义数据
+    const names = ['jQuery', 'Bootstrap', 'Express', 'React', 'Vue'];
+
+    /*const arr = names.map(function (item) {
+      return <li>{item}</li>
+    });*/
+
+    // const arr = names.map((name, index) => <li key={index}>{name}</li>);
+
+    //创建虚拟DOM对象
+    const vDOM = (
+      <ul>
+        {
+          names.map((name, index) => <li key={index}>{name}</li>)
+        }
+      </ul>
+    )
+    //渲染到容器中
+    ReactDOM.render(vDOM, document.getElementById('example1'));
+
+  </script>
 </body>
 </html>
