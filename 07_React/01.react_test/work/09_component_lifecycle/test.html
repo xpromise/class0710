@@ -17,6 +17,76 @@
     2. 切换时间为2S
     3. 点击按钮从界面中移除组件界面
    */
+
+  class Fade extends React.Component {
+    constructor (props) {
+      super(props);
+      console.log('constructor()');
+    }
+    state = {
+      opacity: 1
+    }
+    //组件将要挂载
+    componentWillMount () {
+      console.log('componentWillMount()');
+    }
+    //组件已经挂载
+    componentDidMount () {  //设置定时器，发送ajax请求、异步操作
+      console.log('componentDidMount()');
+      console.log(this);  //组件实例对象
+
+      this.timer = setInterval(() => {
+        let {opacity} = this.state;
+
+        if (opacity >= 1) {
+          this.num = -0.1;
+        } else if (opacity <= 0) {
+          this.num = 0.1;
+        }
+
+        opacity += this.num;
+        //更新状态
+        this.setState({
+          opacity
+        })
+      }, 100)
+    }
+
+    handleUnmount = () => {
+      //卸载组件
+      ReactDOM.unmountComponentAtNode(document.getElementById('example'));
+    }
+
+    //组件将要被卸载
+    componentWillUnmount () { //做收尾工作，清除定时器
+      console.log('componentWillUnmount()');
+      //清除定时器
+      clearInterval(this.timer);
+    }
+
+    //组件将要更新
+    componentWillUpdate () {
+      console.log('componentWillUpdate()');
+    }
+    //组件已经更新
+    componentDidUpdate () {
+      console.log('componentDidUpdate()');
+    }
+
+    render () {
+      console.log('render()');
+      //获取状态
+      const {opacity} = this.state;
+      return (
+        <div>
+          <h2 style={{opacity}}>React学不会该怎么办？</h2>
+          <button onClick={this.handleUnmount}>不活了~</button>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<Fade />, document.getElementById('example'));
 </script>
 </body>
 </html>
