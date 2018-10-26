@@ -13,6 +13,99 @@
   <script type="text/javascript" src="../js/prop-types.js"></script>
   <script type="text/javascript" src="../js/babel.min.js"></script>
   <script type="text/babel">
+    /*
+      1. 拆分组件： App TodoAdd TodoList
+      2. 实现静态组件
+      3. 实现动态组件
+        - 数据：
+          - 保存在哪里？
+          - 数据名称
+          - 数据类型
+
+      重要问题：
+        1. 数据该定义在哪里？ 数据是一个组件使用，还是多个组件使用(公共父组件中)
+        2. 状态定义在哪里，修改状态的方法就该定义在哪。（只能在定义状态的地方修改状态）
+     */
+
+    class App extends React.Component {
+      //初始化状态
+      state = {
+        todos: ['吃饭', '睡觉', '打豆豆']
+      }
+      //定义更新状态的方法
+      addTodo = todo => {
+        //获取当前的状态数据
+        let {todos} = this.state;
+        //往数组最前面添加一条数据
+        todos.unshift(todo);
+        //更新状态数据
+        this.setState({
+          todos
+        })
+      }
+
+      render () {
+        //获取状态数据
+        const {todos} = this.state;
+        return (
+          <div>
+            <h1>Simple Todo List</h1>
+            <TodoAdd addTodo={this.addTodo} length={todos.length}/>
+            <TodoList todos={todos}/>
+          </div>
+        )
+      }
+    }
+
+    class TodoAdd extends React.Component {
+
+      handleClick = () => {
+        //获取用户输入的值
+        const value = this.msgInput.value.trim();
+        //判断用户输入是否合法
+        if (!value) return;
+        //获取更新App组件的状态的方法
+        const {addTodo} = this.props;
+        //更新数据
+        addTodo(value);
+        //清空用户的输入
+        this.msgInput.value = '';
+      }
+
+      render () {
+        //接受长度数据
+        const {length} = this.props;
+
+        return (
+          <div>
+            <input type="text" ref={input => this.msgInput = input}/>
+            <button onClick={this.handleClick}>Add #{length}</button>
+          </div>
+        )
+      }
+    }
+
+    class TodoList extends React.Component {
+      static propTypes = {
+        todos: PropTypes.array.isRequired
+      }
+
+      render () {
+        //接受组件外传递属性值
+        const {todos} = this.props;
+        return (
+          <ul>
+            {
+              todos.map((item, index) => {
+                return <li key={index}>{item}</li>
+              })
+            }
+          </ul>
+        )
+      }
+    }
+
+    ReactDOM.render(<App />, document.getElementById('example'));
 
   </script>
 </body>
