@@ -58,6 +58,10 @@
     }
 
     class TodoAdd extends React.Component {
+      static propTypes = {
+        addTodo: PropTypes.func.isRequired,
+        length: PropTypes.number.isRequired
+      }
 
       handleClick = () => {
         //获取用户输入的值
@@ -86,6 +90,7 @@
     }
 
     class TodoList extends React.Component {
+
       static propTypes = {
         todos: PropTypes.array.isRequired
       }
@@ -95,6 +100,9 @@
         const {todos} = this.props;
         return (
           <ul>
+            {
+              /*todos.map((item, index) => <li key={index}>{item}</li>)*/
+            }
             {
               todos.map((item, index) => {
                 return <li key={index}>{item}</li>

@@ -19,22 +19,45 @@
   */
 
   class Form extends React.Component {
+    state = {
+      username: '',
+      pwd: ''
+    }
 
     handleLogin = (ev) => {
       //禁止默认行为
       ev.preventDefault();
-      //收集表单数据
-      const username = this.usernameInput.value.trim();
-      const pwd = this.pwdInput.value.trim();
+      //获取状态数据
+      const {username, pwd} = this.state;
       //发送请求
       alert(`用户名：${username}  密码：${pwd}`);
     }
 
+    handleUserNameChange = ev => {
+      //获取用户的输入
+      const value = ev.target.value.trim();
+      //更新状态
+      this.setState({
+        username: value
+      })
+    }
+
+    handlePwdChange = ev => {
+      //获取用户的输入
+      const value = ev.target.value.trim();
+      //更新状态
+      this.setState({
+        pwd: value
+      })
+    }
+
     render () {
+      //获取状态值
+      const {username, pwd} = this.state;
       return (
         <form action="/xxx" method="get">
-          用户名： <input type="text" ref={input => this.usernameInput = input}/>
-          密码： <input type="password" ref={input => this.pwdInput = input}/>
+          用户名： <input type="text" value={username} onChange={this.handleUserNameChange}/>
+          密码： <input type="password" value={pwd} onChange={this.handlePwdChange}/>
           <input type="submit" value="登录" onClick={this.handleLogin}/>
         </form>
       )
