@@ -22,12 +22,16 @@
    如果相同则更新，如果不同则销毁之前的，重新创建一个元素
    */
 
+  /*function ListItem(props) {
+    return <li>{props.id}--{props.name}--{props.age}---<input type="text"/></li>
+  }*/
+
   function ListItem({id, name, age}) {
     return <li>{id}--{name}--{age}---<input type="text"/></li>
   }
 
   class PersonList extends React.Component {
-    constructor(props) {
+    /*constructor(props) {
       super(props)
       this.state = {
         persons: [
@@ -36,22 +40,29 @@
         ]
       }
       this.update = this.update.bind(this)
+    }*/
+
+    state = {
+      persons: [
+        {id: 1, name: 'Tom', age: 12},
+        {id: 2, name: 'Jack', age: 13}
+      ]
     }
 
-    update() {
+    update = () => {
       let persons = this.state.persons
       persons.unshift({id: 3, name: 'Bob', age: 14})
       this.setState({persons})
     }
 
     render() {
-      const persons = this.state.persons
-      const listItems = persons.map((person, index) =>
-          <ListItem key={person.id} {...person}/>
-      )
-      const listItems2 = persons.map((person, index) =>
-          <ListItem key={index} {...person}/>
-      )
+      const {persons} = this.state
+
+      const listItems = persons.map((person, index) => <ListItem key={person.id} {...person}/>)
+      // const listItems = persons.map((person, index) => <ListItem key={person.id} name={person.name}/>)
+
+      const listItems2 = persons.map((person, index) => <ListItem key={index} {...person}/>)
+
       return (
           <div>
             <h2>使用id作为key</h2>
