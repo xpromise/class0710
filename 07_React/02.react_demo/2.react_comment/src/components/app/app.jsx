@@ -22,6 +22,26 @@ class App extends Component {
     ]
   }
   
+  //添加评论内容方法
+  addComment = comment => {
+    //获取当前状态数据
+    const {comments} = this.state;
+    //添加数据
+    comments.unshift(comment);
+    //更新状态
+    this.setState({comments});
+  }
+  
+  //删除数据方法
+  delComment = index => {
+    //获取当前状态数据
+    const {comments} = this.state;
+    //删除数据
+    comments.splice(index, 1);
+    //更新状态
+    this.setState({comments});
+  }
+  
   render () {
     //获取状态数据
     const {comments} = this.state;
@@ -37,8 +57,8 @@ class App extends Component {
           </div>
         </header>
         <div className="container">
-          <CommentAdd />
-          <CommentList comments={comments}/>
+          <CommentAdd addComment={this.addComment}/>
+          <CommentList comments={comments} delComment={this.delComment}/>
         </div>
       </div>
     )
