@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import PubSub from 'pubsub-js';
 
 class List extends Component {
+  static propTypes = {
+    searchName: PropTypes.string.isRequired
+  }
   
   state = {
     firstView: true,
@@ -11,34 +14,35 @@ class List extends Component {
     errData: false
   }
   
-  componentDidMount () {
-    //订阅消息
-    PubSub.subscribe('SEARCH_NAME', (msg, data) => {
-      console.log(data);
-      //将要发送请求, 更新状态， 显示loading
-      this.setState({
-        firstView: false,
-        loading: true
-      })
-      //发送请求
-      axios.get(`https://api.github.com/search/users?q=${data}`)
-        .then(res => {
-          //加工处理数据
-          const data = res.data.items.map(item => ({name: item.login, image: item.avatar_url, url: item.html_url}));
-          //请求成功，修改状态
-          this.setState({
-            loading: false,
-            resData: data
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.setState({
-            loading: false,
-            errData: true
-          })
-        })
+  componentWillReceiveProps (props) {
+    /*
+      没有办法通过this.props读取props属性，
+      需要通过传参props
+     */
+    const {searchName} = props;
+    //将要发送请求, 更新状态， 显示loading
+    this.setState({
+      firstView: false,
+      loading: true
     })
+    //发送请求
+    axios.get(`https://api.github.com/search/users?q=${searchName}`)
+      .then(res => {
+        //加工处理数据
+        const data = res.data.items.map(item => ({name: item.login, image: item.avatar_url, url: item.html_url}));
+        //请求成功，修改状态
+        this.setState({
+          loading: false,
+          resData: data
+        })
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          loading: false,
+          errData: true
+        })
+      })
   }
   
   render () {
