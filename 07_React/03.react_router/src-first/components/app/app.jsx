@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Route, NavLink, Link, Switch, Redirect} from 'react-router-dom';
 
-import About from '../../pages/about';
-import Home from '../../pages/home';
+import About from '../../pages/about/about';
+import Home from '../../pages/home/home';
 import MyNavLink from '../my-nav-link';
 
 import './app.css';
