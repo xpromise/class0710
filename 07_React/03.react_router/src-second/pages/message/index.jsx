@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {Link, Route} from 'react-router-dom';
-
-import MessageDetail from '../message-detail';
 
 class Message extends Component {
   state = {
@@ -25,17 +22,11 @@ class Message extends Component {
   render () {
     const {messages} = this.state;
     return (
-      <div>
-        <ul>
-          {
-            messages.map((message, index) => (
-              <li key={index}>
-                <Link to={`/home/message/${message.id}`}>{message.content}</Link>
-              </li>))
-          }
-        </ul>
-        <Route path="/home/message/:id" component={MessageDetail}/>
-      </div>
+      <ul>
+        {
+          messages.map((message, index) => <li key={index}>{message.content}</li>)
+        }
+      </ul>
     )
   }
 }
