@@ -1,6 +1,9 @@
 .idea/
 node_modules/
 
+package-lock.json
+*.lock
+
 *.jpg
 *.png
 *.mp3
