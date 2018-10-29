@@ -22,6 +22,14 @@ class Message extends Component {
     }, 1000)
   }
   
+  goForward = () => {
+    this.props.history.goForward();  //编程式导航
+  }
+  
+  goBack = () => {
+    this.props.history.goBack();
+  }
+  
   render () {
     const {messages} = this.state;
     return (
@@ -30,10 +38,12 @@ class Message extends Component {
           {
             messages.map((message, index) => (
               <li key={index}>
-                <Link to={`/home/message/${message.id}`}>{message.content}</Link>
+                <Link to={`/home/message/${message.id}`}>{message.content}</Link> {/*路由链接跳转*/}
               </li>))
           }
         </ul>
+        <button onClick={this.goForward}>前进</button>
+        <button onClick={this.goBack}>后退</button>
         <Route path="/home/message/:id" component={MessageDetail}/>
       </div>
     )

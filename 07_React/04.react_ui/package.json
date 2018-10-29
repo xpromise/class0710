@@ -1,0 +1,30 @@
+{
+  "name": "04.react_ui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd-mobile": "^2.2.6",
+    "prop-types": "15.6.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-scripts": "2.0.5"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-plugin-import": "^1.11.0",
+    "react-app-rewired": "^1.6.2"
+  }
+}
