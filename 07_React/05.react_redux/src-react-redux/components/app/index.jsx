@@ -9,8 +9,7 @@ class App extends Component {
   static propTypes = {
     count: PropTypes.number.isRequired,
     increment: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired,
-    incrementAsync: PropTypes.func.isRequired
+    decrement: PropTypes.func.isRequired
   }
   
   increment = () => {
@@ -41,7 +40,9 @@ class App extends Component {
   incrementAsync = () => {
     //获取select值
     const {value} = this.select;
-    this.props.incrementAsync(+value);
+    setTimeout(() => {
+      this.props.increment(+value);
+    }, 1000)
   }
   
   render () {
